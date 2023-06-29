@@ -21,12 +21,6 @@ let schema = yup.object().shape({
   category: yup.string().required("Category is Required"),
   modelYear: yup.number().required("Model Year is Required"),
   price: yup.number().required("Price is Required"),
-
-  // tags: yup.string().required("Tag is Required"),
-  // color: yup
-  //   .array()
-  //   .min(1, "Pick at least one color")
-  //   .required("Color is Required"),
   quantity: yup.number().required("Quantity is Required"),
 });
 
@@ -71,7 +65,6 @@ const Addproduct = () => {
       modelYear: "",
       price: "",
       quantity: "",
-      images: "",
     },
     validationSchema: schema,
     onSubmit: (values) => {

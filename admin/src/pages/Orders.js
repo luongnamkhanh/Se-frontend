@@ -11,28 +11,20 @@ const columns = [
     dataIndex: "key",
   },
   {
-    title: "Customer ID",
-    dataIndex: "customerId",
+    title: "Name",
+    dataIndex: "name",
   },
   {
-    title: "Status",
-    dataIndex: "status",
-  },
-  {
-    title: "Order Date",
-    dataIndex: "orderDate",
-  },
-  {
-    title: "Staff ID",
-    dataIndex: "staffId",
+    title: "Product",
+    dataIndex: "product",
   },
   {
     title: "Amount",
     dataIndex: "amount",
   },
   {
-    title: "Shipping Date",
-    dataIndex: "shippingDate",
+    title: "Date",
+    dataIndex: "date",
   },
 
   {
@@ -47,37 +39,30 @@ const Orders = () => {
     dispatch(getOrders());
   }, []);
   const orderState = useSelector((state) => state.auth.orders);
-  console.log(orderState);
+
   const data1 = [];
-  if (orderState.orders && orderState.orders.length) {
-    for (let i = 0; i < orderState.orders.length; i++) {
-      data1.push({
-        key: orderState.orders[i]['order_id'],
-        customerId: orderState.orders[i]['customer_id'],
-        status: orderState.orders[i]['status'],
-        orderDate: orderState.orders[i]['order_date'],
-        staffId: orderState.orders[i]['staff_id'],
-        amount: orderState.orders[i]['total_amount'],
-        shippingDate: orderState.orders[i]['shipping_date'],
-        // product: (
-        //   <Link to={`/admin/order/${orderState[i].orderby._id}`}>
-        //     View Orders
-        //   </Link>
-        // ),
-        // amount: orderState[i].paymentIntent.amount,
-        // date: new Date(orderState[i].createdAt).toLocaleString(),
-        action: (
-          <>
-            <Link to="/" className=" fs-3 text-danger">
-              <BiEdit />
-            </Link>
-            <Link className="ms-3 fs-3 text-danger" to="/">
-              <AiFillDelete />
-            </Link>
-          </>
-        ),
-      });
-    }
+  for (let i = 0; i < orderState.length; i++) {
+    data1.push({
+      key: i + 1,
+      name: orderState[i].orderby.firstname,
+      product: (
+        <Link to={`/admin/order/${orderState[i].orderby._id}`}>
+          View Orders
+        </Link>
+      ),
+      amount: orderState[i].paymentIntent.amount,
+      date: new Date(orderState[i].createdAt).toLocaleString(),
+      action: (
+        <>
+          <Link to="/" className=" fs-3 text-danger">
+            <BiEdit />
+          </Link>
+          <Link className="ms-3 fs-3 text-danger" to="/">
+            <AiFillDelete />
+          </Link>
+        </>
+      ),
+    });
   }
   return (
     <div>

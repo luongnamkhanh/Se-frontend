@@ -10,8 +10,8 @@ const login = async (user) => {
   return response.data;
 };
 const getOrders = async () => {
-  const response = await axios.get(`${base_url}v1/order/pending`, config);
-  console.log(response.data);
+  const response = await axios.get(`${base_url}user/getallorders`, config);
+
   return response.data;
 };
 const getOrder = async (id) => {

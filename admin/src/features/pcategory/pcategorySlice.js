@@ -23,9 +23,9 @@ export const createCategory = createAsyncThunk(
 );
 export const updateAProductCategory = createAsyncThunk(
   "productCategory/update-category",
-  async (category, thunkAPI) => {
+  async (categoryData, thunkAPI) => {
     try {
-      return await pCategoryService.updateProductCategory(category);
+      return await pCategoryService.updateProductCategory(categoryData);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
     }
@@ -134,7 +134,7 @@ export const pCategorySlice = createSlice({
         state.isLoading = false;
         state.isError = false;
         state.isSuccess = true;
-        state.categoryName = action.payload.title;
+        state.categoryName = action.payload;
       })
       .addCase(getAProductCategory.rejected, (state, action) => {
         state.isLoading = false;

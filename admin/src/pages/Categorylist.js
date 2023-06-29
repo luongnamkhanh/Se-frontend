@@ -45,29 +45,33 @@ const Categorylist = () => {
     dispatch(getCategories());
   }, []);
   const pCatStat = useSelector((state) => state.pCategory.pCategories);
+
+  console.log(pCatStat.categorys)
+
   const data1 = [];
-  for (let i = 0; i < pCatStat.length; i++) {
-    data1.push({
-      key: pCatStat[i].category_id,
-      name: pCatStat[i].category_name,
-      action: (
-        <>
-          <Link
-            to={`/admin/category/${pCatStat[i]._id}`}
-            className=" fs-3 text-danger"
-          >
-            <BiEdit />
-          </Link>
-          <button
-            className="ms-3 fs-3 text-danger bg-transparent border-0"
-            onClick={() => showModal(pCatStat[i]._id)}
-          >
-            <AiFillDelete />
-          </button>
-        </>
-      ),
-    });
-  }
+  if(pCatStat.categorys && pCatStat.categorys.length)
+    for (let i = 0; i < pCatStat.categorys.length; i++) {
+      data1.push({
+        key: pCatStat.categorys[i]['category_id'],
+        name: pCatStat.categorys[i]['category_name'],
+        action: (
+          <>
+            <Link
+              to={`/admin/category/${pCatStat.categorys[i]['category_id']}`}
+              className=" fs-3 text-danger"
+            >
+              <BiEdit />
+            </Link>
+            <button
+              className="ms-3 fs-3 text-danger bg-transparent border-0"
+              onClick={() => showModal(pCatStat.categorys[i]['category_id'])}
+            >
+              <AiFillDelete />
+            </button>
+          </>
+        ),
+      });
+    }
   const deleteCategory = (e) => {
     dispatch(deleteAProductCategory(e));
     setOpen(false);
