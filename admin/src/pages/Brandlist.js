@@ -45,7 +45,7 @@ const Brandlist = () => {
   }, []);
   const brandState = useSelector((state) => state.brand.brands);
   console.log(brandState.brands);
-  console.log(brandState.brands && brandState.brands.length);
+  // console.log(brandState.brands && brandState.brands.length);
   const data1 = [];
   if (brandState.brands && brandState.brands.length) {
     for (let i = 0; i < brandState.brands.length; i++) {

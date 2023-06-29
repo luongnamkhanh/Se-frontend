@@ -12,7 +12,7 @@ import {
   updateAProductCategory,
 } from "../features/pcategory/pcategorySlice";
 let schema = yup.object().shape({
-  title: yup.string().required("Category Name is Required"),
+  categoryName: yup.string().required("Category Name is Required"),
 });
 const Addcat = () => {
   const dispatch = useDispatch();
@@ -50,7 +50,8 @@ const Addcat = () => {
   const formik = useFormik({
     enableReinitialize: true,
     initialValues: {
-      title: categoryName || "",
+      // categoryName: categoryName || "",
+      categoryName: (getPCatId !== undefined && categoryName !== undefined) ? categoryName['category']['category_name'] || "" : "",
     },
     validationSchema: schema,
     onSubmit: (values) => {
@@ -77,13 +78,13 @@ const Addcat = () => {
           <CustomInput
             type="text"
             label="Enter Product Category"
-            onChng={formik.handleChange("title")}
-            onBlr={formik.handleBlur("title")}
-            val={formik.values.title}
+            onChng={formik.handleChange("categoryName")}
+            onBlr={formik.handleBlur("categoryName")}
+            val={formik.values.categoryName}
             id="brand"
           />
           <div className="error">
-            {formik.touched.title && formik.errors.title}
+            {formik.touched.categoryName && formik.errors.categoryName}
           </div>
           <button
             className="btn btn-success border-0 rounded-3 my-5"
