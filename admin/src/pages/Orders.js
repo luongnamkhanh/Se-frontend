@@ -12,24 +12,26 @@ const columns = [
     dataIndex: "key",
   },
   {
-    title: "Customer ID",
-    dataIndex: "customerId",
+    title: "Name",
+    dataIndex: "name",
   },
   {
+
     title: "Order Date",
     dataIndex: "orderDate",
   },
   {
     title: "Staff ID",
     dataIndex: "staffId",
+
   },
   {
     title: "Amount",
     dataIndex: "amount",
   },
   {
-    title: "Shipping Date",
-    dataIndex: "shippingDate",
+    title: "Date",
+    dataIndex: "date",
   },
 
   {
@@ -44,8 +46,9 @@ const Orders = () => {
     dispatch(getOrders());
   }, []);
   const orderState = useSelector((state) => state.auth.orders);
-  console.log(orderState);
+
   const data1 = [];
+
   if (orderState.orders && orderState.orders.length) {
     for (let i = 0; i < orderState.orders.length; i++) {
       data1.push({
@@ -75,6 +78,7 @@ const Orders = () => {
         ),
       });
     }
+
   }
   return (
     <div>

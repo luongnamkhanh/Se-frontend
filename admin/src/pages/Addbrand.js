@@ -50,11 +50,13 @@ const Addbrand = () => {
       toast.error("Something Went Wrong!");
     }
   }, [isSuccess, isError, isLoading]);
+
   console.log( brandName);
+
   const formik = useFormik({
     enableReinitialize: true,
     initialValues: {
-      brandName: (getBrandId !== undefined && brandName !== undefined) ? brandName['brand']['brand_name'] || "" : "",
+      brandName: brandName || "",
     },
     validationSchema: schema,
     onSubmit: (values) => {
