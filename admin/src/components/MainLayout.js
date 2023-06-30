@@ -102,16 +102,7 @@ const MainLayout = () => {
                   icon: <AiOutlineBgColors className="fs-4" />,
                   label: "Config List",
                 },
-                {
-                  key: "item",
-                  icon: <FaClipboardList className="fs-4" />,
-                  label: "Add Item",
-                },
-                {
-                  key: "list-item",
-                  icon: <FaClipboardList className="fs-4" />,
-                  label: "Item List",
-                },
+
               ],
             },
             {
@@ -119,6 +110,29 @@ const MainLayout = () => {
               icon: <FaClipboardList className="fs-4" />,
               label: "Orders",
             },
+            {
+              key: "sales",
+              icon: <FaClipboardList className="fs-4" />,
+              label: "Sales",
+              children: [
+                {
+                  key: "revenue-customer",
+                  icon: <FaClipboardList className="fs-4" />,
+                  label: "Revenue by Customer",
+                },
+                {
+                  key: "revenue-config",
+                  icon: <FaClipboardList className="fs-4" />,
+                  label: "Revenue by Config",
+                },
+                {
+                  key: "item-sold",
+                  icon: <FaClipboardList className="fs-4" />,
+                  label: "Item Sold",
+                },
+              ],
+            },
+            
             {
               key: "marketing",
               icon: <RiCouponLine className="fs-4" />,
@@ -196,8 +210,8 @@ const MainLayout = () => {
                 data-bs-toggle="dropdown"
                 aria-expanded="false"
               >
-                <h5 className="mb-0">{storedUser.staff.first_name + " " +storedUser.staff.last_name }</h5>
-                <p className="mb-0">{storedUser.staff.email }</p>
+                <h5 className="mb-0">{storedUser.staff.first_name + " " + storedUser.staff.last_name}</h5>
+                <p className="mb-0">{storedUser.staff.email}</p>
               </div>
               <div className="dropdown-menu" aria-labelledby="dropdownMenuLink">
                 <li>
