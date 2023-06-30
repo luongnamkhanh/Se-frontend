@@ -11,7 +11,7 @@ const login = async (user) => {
 };
 const getOrders = async () => {
   const response = await axios.get(`${base_url}v1/order/pending`, config);
-  console.log(response.data);
+
   return response.data;
 };
 const getOrder = async (id) => {
@@ -24,10 +24,21 @@ const getOrder = async (id) => {
   return response.data;
 };
 
+const updateOrderStatus = async (order) => {
+  const response = await axios.put(
+    `${base_url}v1/order/process/${order.id}`,
+    { staffId: order.orderData.staffId, shippingDate: order.orderData.shippingDate, orderStatus : 'Processed' },
+    config
+  );
+    console.log(order.orderData.staffId);
+  return response.data;
+};
+
 const authService = {
   login,
   getOrders,
   getOrder,
+  updateOrderStatus,
 };
 
 export default authService;

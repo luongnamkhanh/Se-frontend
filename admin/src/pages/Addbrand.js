@@ -20,7 +20,6 @@ const Addbrand = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const getBrandId = location.pathname.split("/")[3];
-  // console.log(brandService.getBrand(getBrandId))
   const newBrand = useSelector((state) => state.brand);
   const {
     isSuccess,
@@ -51,7 +50,7 @@ const Addbrand = () => {
       toast.error("Something Went Wrong!");
     }
   }, [isSuccess, isError, isLoading]);
-  
+  console.log( brandName);
   const formik = useFormik({
     enableReinitialize: true,
     initialValues: {

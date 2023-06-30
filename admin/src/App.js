@@ -26,7 +26,10 @@ import Addproduct from "./pages/Addproduct";
 import Couponlist from "./pages/Couponlist";
 import AddCoupon from "./pages/AddCoupon";
 import ViewOrder from "./pages/ViewOrder";
-
+import UpdateOrder from "./pages/UpdateOrder";
+import RevenueConfig from "./pages/RevenueConfig";
+import RevenueCus from "./pages/RevenueCus";
+import ItemSold from "./pages/ItemSold";
 function App() {
   return (
     <Router>
@@ -46,7 +49,7 @@ function App() {
           <Route path="blog-category" element={<Addblogcat />} />
           <Route path="blog-category/:id" element={<Addblogcat />} />
           <Route path="orders" element={<Orders />} />
-          <Route path="order/:id" element={<ViewOrder />} />
+          <Route path="order/:id" element={<UpdateOrder />} />
           <Route path="customers" element={<Customers />} />
           <Route path="list-color" element={<Colorlist />} />
           <Route path="color" element={<Addcolor />} />
@@ -63,6 +66,9 @@ function App() {
           <Route path="item" element={<Additem />} />
           <Route path="list-config" element={<Configlist />} />
           <Route path="config" element={<Addconfig />} />
+          <Route path="revenue-customer" element={<RevenueCus />} />
+          <Route path="revenue-config" element={<RevenueConfig />} />
+          <Route path="item-sold" element={<ItemSold />} />
         </Route>
       </Routes>
     </Router>
