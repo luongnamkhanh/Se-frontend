@@ -20,6 +20,7 @@ const Addcat = () => {
   const getPCatId = location.pathname.split("/")[3];
   const navigate = useNavigate();
   const newCategory = useSelector((state) => state.pCategory);
+  console.log(newCategory)
   const {
     isSuccess,
     isError,

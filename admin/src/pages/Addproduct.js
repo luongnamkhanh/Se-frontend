@@ -10,10 +10,6 @@ import { useFormik } from "formik";
 import { useDispatch, useSelector } from "react-redux";
 import { getBrands } from "../features/brand/brandSlice";
 import { getCategories } from "../features/pcategory/pcategorySlice";
-import { getColors } from "../features/color/colorSlice";
-import { Select } from "antd";
-import Dropzone from "react-dropzone";
-import { delImg, uploadImg } from "../features/upload/uploadSlice";
 import { createProducts, resetState } from "../features/product/productSlice";
 let schema = yup.object().shape({
   productName: yup.string().required("Title is Required"),
@@ -57,8 +53,6 @@ const Addproduct = () => {
     },
     validationSchema: schema,
     onSubmit: (values) => {
-      console.log('Submitting')
-      // console.log(values);  
       dispatch(createProducts(values));
       formik.resetForm();
       setTimeout(() => {
