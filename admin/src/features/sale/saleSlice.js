@@ -42,7 +42,15 @@ const initialState = {
 };
 export const saleSlice = createSlice({
     name: "sales",
-    initialState,
+    initialState: {
+        salesByCustomer: {}, // Initial state for salesByCustomer
+        salesByConfig: {}, // Initial state for salesByConfig
+        salesByItem: {}, // Initial state for salesByItems
+        isLoading: false,
+        isError: false,
+        isSuccess: false,
+        message: ""
+    },
     reducers: {},
     extraReducers: (builder) => {
         builder
@@ -53,7 +61,7 @@ export const saleSlice = createSlice({
                 state.isLoading = false;
                 state.isError = false;
                 state.isSuccess = true;
-                state.sales = action.payload;
+                state.salesByCustomer = action.payload; // Update salesByCustomer state
             })
             .addCase(getSalesByCustomer.rejected, (state, action) => {
                 state.isLoading = false;
@@ -68,7 +76,7 @@ export const saleSlice = createSlice({
                 state.isLoading = false;
                 state.isError = false;
                 state.isSuccess = true;
-                state.sales = action.payload;
+                state.salesByConfig = action.payload; // Update salesByConfig state
             })
             .addCase(getSalesByConfig.rejected, (state, action) => {
                 state.isLoading = false;
@@ -83,7 +91,7 @@ export const saleSlice = createSlice({
                 state.isLoading = false;
                 state.isError = false;
                 state.isSuccess = true;
-                state.sales = action.payload;
+                state.salesByItem = action.payload;
             })
             .addCase(getSalesByItem.rejected, (state, action) => {
                 state.isLoading = false;
