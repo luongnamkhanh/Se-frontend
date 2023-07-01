@@ -20,7 +20,9 @@ let schema = yup.object().shape({
   brandId: yup.string().required("Brand is Required"),
   categoryId: yup.string().required("Category is Required"),
   modelYear: yup.number().required("Model Year is Required"),
+
   listPrice: yup.number().required("Price is Required"),
+
 });
 
 const Addproduct = () => {
@@ -54,6 +56,7 @@ const Addproduct = () => {
       categoryId: "",
       listPrice: "",
       modelYear: "",
+
     },
     validationSchema: schema,
     onSubmit: (values) => {

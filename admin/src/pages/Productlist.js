@@ -75,13 +75,16 @@ const Productlist = () => {
   const data = productState?.map((product, index) => ({
     key: product.product_id,
     title: product.product_name,
+
     brand: product.brand_name, // Lưu ý: Giả định đây là tên thương hiệu, không phải ID
     category: product.category_name, // Lưu ý: Giả định đây là tên danh mục, không phải ID
+
     modelYear: product.model_year,
     price: product.list_price,
     averageRating: product.avg_rating,
     reviews: product.total_review,
     discontinued: product.discontinued ? "Yes" : "No",
+
     action: (
       <>
         <Link
@@ -98,6 +101,7 @@ const Productlist = () => {
         </button>
       </>
     ),
+
   }));
 
   return (
