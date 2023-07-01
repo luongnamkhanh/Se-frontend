@@ -10,7 +10,9 @@ import colorReducer from "../features/color/colorSlice";
 import enquiryReducer from "../features/enquiry/enquirySlice";
 import uploadReducer from "../features/upload/uploadSlice";
 import couponReducer from "../features/coupon/couponSlice";
+import configReducer from "../features/config/configSlice";
 import saleReducer from "../features/sale/saleSlice";
+
 export const store = configureStore({
   reducer: {
     auth: authReducer,
@@ -20,6 +22,7 @@ export const store = configureStore({
     pCategory: pCategoryReducer,
     bCategory: bCategoryReducer,
     blogs: blogReducer,
+    pconfig: configReducer, 
     color: colorReducer,
     enquiry: enquiryReducer,
     upload: uploadReducer,

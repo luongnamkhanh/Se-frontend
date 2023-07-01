@@ -46,8 +46,9 @@ const Categorylist = () => {
   }, []);
   const pCatStat = useSelector((state) => state.pCategory.pCategories);
 
-
   console.log(pCatStat)
+  // if(pCatStat.categorys && pCatStat.categorys.length)
+  //   console.log(pCatStat.categorys)
 
 
   const data1 = [];
