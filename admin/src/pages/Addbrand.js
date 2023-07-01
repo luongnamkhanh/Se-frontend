@@ -50,6 +50,9 @@ const Addbrand = () => {
       toast.error("Something Went Wrong!");
     }
   }, [isSuccess, isError, isLoading]);
+
+  console.log( brandName);
+
   const formik = useFormik({
     enableReinitialize: true,
     initialValues: {
