@@ -9,6 +9,7 @@ import addcart from "../images/add-cart.svg";
 import view from "../images/view.svg";
 
 const ProductCard = (props) => {
+
   const { grid, product } = props; // Receive product as a prop
   console.log(product);
   let location = useLocation();
@@ -72,3 +73,4 @@ const ProductCard = (props) => {
 };
 
 export default ProductCard;
+

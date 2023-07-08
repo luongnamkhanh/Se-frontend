@@ -22,6 +22,7 @@ export const getProducts = createAsyncThunk(
 //   }
 // );
 
+
 export const getAProduct = createAsyncThunk(
   "product/get-product",
   async (id, thunkAPI) => {
@@ -32,6 +33,7 @@ export const getAProduct = createAsyncThunk(
     }
   }
 );
+
 
 // export const updateAProduct = createAsyncThunk(
 //   "product/update-product",
@@ -100,6 +102,7 @@ export const productSlice = createSlice({
       //   state.isSuccess = false;
       //   state.message = action.error;
       // })
+
       .addCase(getAProduct.pending, (state) => {
         state.isLoading = true;
       })
@@ -115,6 +118,7 @@ export const productSlice = createSlice({
         state.isSuccess = false;
         state.message = action.error;
       })
+
       // .addCase(updateAProduct.pending, (state) => {
       //   state.isLoading = true;
       // })

@@ -1,4 +1,6 @@
+
 import React, { useEffect, useState } from "react";
+
 import ReactStars from "react-rating-stars-component";
 import BreadCrumb from "../components/BreadCrumb";
 import Meta from "../components/Meta";
@@ -10,6 +12,7 @@ import { AiOutlineHeart } from "react-icons/ai";
 import { Link } from "react-router-dom";
 import watch from "../images/watch.jpg";
 import Container from "../components/Container";
+
 import { useLocation, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getAProduct, resetState } from "../features/product/productSlice";
@@ -37,6 +40,7 @@ const SingleProduct = () => {
   const handleConfigSelect = (config) => {
     setSelectedConfig(config);
   };
+
   const [orderedProduct, setorderedProduct] = useState(true);
   const copyToClipboard = (text) => {
     console.log("text", text);
@@ -47,6 +51,7 @@ const SingleProduct = () => {
     document.execCommand("copy");
     textField.remove();
   };
+
   const closeModal = () => { };
   if (!product) return null;
   const configurations = product.map((config) => ({
@@ -75,32 +80,36 @@ const SingleProduct = () => {
               </div>
             </div>
 
-
           </div>
           <div className="col-6">
             <div className="main-product-details">
               <div className="border-bottom">
                 <h3 className="title">
+
                   {product[0]?.product_name}
                 </h3>
               </div>
               <div className="border-bottom py-3">
                 <p className="price">{product[0]?.price}$</p>
+
                 <div className="d-flex align-items-center gap-10">
                   <ReactStars
                     count={5}
                     size={24}
+
                     value={product[0]?.avg_rating}
                     edit={false}
                     activeColor="#ffd700"
                   />
                   <p className="mb-0 t-review">( {rating?.length} Reviews )</p>
+
                 </div>
                 <a className="review-btn" href="#review">
                   Write a Review
                 </a>
               </div>
               <div className=" py-3">
+
 
                 <div className="d-flex gap-10 align-items-center my-2">
                   <h3 className="product-heading">Brand :</h3>
@@ -139,6 +148,7 @@ const SingleProduct = () => {
                   <h3 className="product-heading">Color :</h3>
                   <Color />
                 </div> */}
+
                 <div className="d-flex align-items-center gap-15 flex-row mt-2 mb-3">
                   <h3 className="product-heading">Quantity :</h3>
                   <div className="">
@@ -229,11 +239,13 @@ const SingleProduct = () => {
                     <ReactStars
                       count={5}
                       size={24}
+
                       value={product[0]?.avg_rating}
                       edit={false}
                       activeColor="#ffd700"
                     />
                     <p className="mb-0">Based on {rating?.length} Reviews</p>
+
                   </div>
                 </div>
                 {orderedProduct && (
@@ -251,7 +263,9 @@ const SingleProduct = () => {
                     <ReactStars
                       count={5}
                       size={24}
+
                       value={0}
+
                       edit={true}
                       activeColor="#ffd700"
                     />
@@ -272,6 +286,7 @@ const SingleProduct = () => {
                 </form>
               </div>
               <div className="reviews mt-4">
+
                 {rating.map((rating, index) => (
                   <div className="review" key={index}>
                     <div className="d-flex gap-10 align-items-center">
@@ -287,6 +302,7 @@ const SingleProduct = () => {
                     <p className="mt-3">{rating.comment_text}</p>
                   </div>
                 ))}
+
               </div>
             </div>
           </div>

@@ -1,4 +1,6 @@
+
 import React, { useEffect } from "react";
+
 import { NavLink, Link } from "react-router-dom";
 import { BsSearch } from "react-icons/bs";
 import compare from "../images/compare.svg";
@@ -6,26 +8,20 @@ import wishlist from "../images/wishlist.svg";
 import user from "../images/user.svg";
 import cart from "../images/cart.svg";
 import menu from "../images/menu.svg";
-import { getAuth, onAuthStateChanged } from "firebase/auth";
-import { useState } from "react";
 
-
+import { useDispatch, useSelector } from "react-redux";
+import { getUserCart } from "../features/user/userSlice";
 const Header = () => {
-  const [name, setName] = useState('');
+  const dispatch = useDispatch();
+  const authState = useSelector(state => state.auth)
 
-  const auth = getAuth();
-  onAuthStateChanged(auth, (user) => {
-    if (user) {
-      setName(user.displayName);
-      console.log(user);
-    } else {
-    }
-  });
+  const handleLogout = () => {
+    localStorage.clear();
+    window.location.reload()
+  }  
 
-  const handleLogOut = () => {
-    auth.signOut()
-    .then(console.log("Log out thanh cong"))
-    window.location.reload(true);
+  const handleCart = () => {
+    dispatch(getUserCart())
   }
 
   return (
@@ -35,7 +31,9 @@ const Header = () => {
           <div className="row align-items-center">
             <div className="col-2">
               <h2>
-                <Link className="text-white">KellPHONES</Link>
+
+                <Link to={'/'} className="text-white">KellPHONES</Link>
+
               </h2>
             </div>
             <div className="col-5">
@@ -78,18 +76,30 @@ const Header = () => {
                 </div>
                 <div>
                   <Link
-                    to="/login"
+
+                    to={authState?.user === "" ? "/login" : ""}
                     className="d-flex align-items-center gap-10 text-white"
                   >
                     <img src={user} alt="user" />
-                    <p className="mb-0">
-                    {auth.currentUser === null ? "Log in" : name}
-                    </p>
+                    {
+                      authState?.user === "" ? 
+                      <p className="mb-0">
+                        Log in <br /> My Account
+                      </p> 
+                      : 
+                      <p className="mb-0">
+                        Welcome {authState?.user?.name}
+                      </p> 
+                    }
+
                   </Link>
                 </div>
                 <div>
                   <Link
                     to="/cart"
+
+                    onClick={handleCart}
+
                     className="d-flex align-items-center gap-10 text-white"
                   >
                     <img src={cart} alt="cart" />
@@ -99,7 +109,7 @@ const Header = () => {
                     </div>
                   </Link>
                 </div>
-                <button onClick={handleLogOut}>Log Out</button>
+
               </div>
             </div>
           </div>
@@ -130,52 +140,23 @@ const Header = () => {
                     >
                       <li>
                         <Link className="dropdown-item text-white" to="">
-                          Smartphones
+
+                          Action
+
                         </Link>
                       </li>
                       <li>
                         <Link className="dropdown-item text-white" to="">
-                          Laptops
+
+                          Another action
+
                         </Link>
                       </li>
                       <li>
                         <Link className="dropdown-item text-white" to="">
-                          Tablets
-                        </Link>
-                      </li>
-                      <li>
-                        <Link className="dropdown-item text-white" to="">
-                          Headphones
-                        </Link>
-                      </li>
-                      <li>
-                        <Link className="dropdown-item text-white" to="">
-                          Televisions
-                        </Link>
-                      </li>
-                      <li>
-                        <Link className="dropdown-item text-white" to="">
-                          Smart Watches
-                        </Link>
-                      </li>
-                      <li>
-                        <Link className="dropdown-item text-white" to="">
-                          Cameras
-                        </Link>
-                      </li>
-                      <li>
-                        <Link className="dropdown-item text-white" to="">
-                          Gaming Consoles
-                        </Link>
-                      </li>
-                      <li>
-                        <Link className="dropdown-item text-white" to="">
-                          Speakers
-                        </Link>
-                      </li>
-                      <li>
-                        <Link className="dropdown-item text-white" to="">
-                          Home Appliances
+
+                          Something else here
+
                         </Link>
                       </li>
                     </ul>
@@ -187,6 +168,9 @@ const Header = () => {
                     <NavLink to="/product">Our Store</NavLink>
                     <NavLink to="/blogs">Blogs</NavLink>
                     <NavLink to="/contact">Contact</NavLink>
+
+                    <button onClick={handleLogout} className="border border-0 bg-transparent text-white text-uppercase" type="button">Logout</button>
+
                   </div>
                 </div>
               </div>
@@ -198,4 +182,6 @@ const Header = () => {
   );
 };
 
+
 export default Header;
+

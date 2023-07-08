@@ -10,7 +10,9 @@ import CompareProduct from "./pages/CompareProduct";
 import Wishlist from "./pages/Wishlist";
 import Blog from './pages/Blog';
 import Login from './pages/Login';
-import Register from './pages/Register';
+
+import Register from './pages/Signup';
+
 import SingleBlog from "./pages/SingleBlog";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
 import RefundPloicy from "./pages/RefundPloicy";
@@ -19,6 +21,9 @@ import TermAndContions from "./pages/TermAndContions";
 import SingleProduct from "./pages/SingleProduct";
 import Cart from "./pages/Cart";
 import Checkout from "./pages/Checkout";
+
+import { PrivateRoutes } from './routing/PrivateRoutes';
+
 // import HomePage from './pages/HomePage';
 
 
@@ -35,7 +40,9 @@ function App() {
             <Route path="product/:id" element={<SingleProduct />} />
             <Route path="blogs" element={<Blog/>} />
             <Route path="blog/:id" element={<SingleBlog />} />
-            <Route path="cart" element={<Cart />} />
+
+            <Route path="cart" element={<PrivateRoutes><Cart /></PrivateRoutes>} />
+
             <Route path="checkout" element={<Checkout />} />
             <Route path="compare-product" element={<CompareProduct />} />
             <Route path="wishlist" element={<Wishlist />} />

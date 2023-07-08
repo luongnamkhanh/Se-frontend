@@ -3,8 +3,10 @@ import axios from "axios";
 import { base_url } from "../../utils/baseUrl";
 
 const getProducts = async () => {
+
   const response = await axios.get(`${base_url}product`);
   console.log(response.data);
+
   return response.data;
 };
 // const createProduct = async (product) => {
@@ -13,11 +15,13 @@ const getProducts = async () => {
 //   return response.data;
 // };
 
+
 const getProduct = async (id) => {
   const response = await axios.get(`${base_url}product/${id}`);
   console.log(response.data);
   return response.data;
 };
+
 
 // const deleteProduct= async (id) => {
 //   const response = await axios.delete(`${base_url}v1/product/${id}`, config);
@@ -38,7 +42,9 @@ const getProduct = async (id) => {
 const productService = {
   getProducts,
   // createProduct,
+
   getProduct,
+
   // deleteProduct,
   // updateProduct
 };

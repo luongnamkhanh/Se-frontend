@@ -6,7 +6,17 @@ import { AiFillDelete } from "react-icons/ai";
 import { Link } from "react-router-dom";
 import Container from "../components/Container";
 
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import { getUserCart } from "../features/user/userSlice";
+
 const Cart = () => {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getUserCart())
+  }, [dispatch])
+
+
   return (
     <>
       <Meta title={"Cart"} />
