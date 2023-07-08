@@ -9,130 +9,65 @@ import addcart from "../images/add-cart.svg";
 import view from "../images/view.svg";
 
 const ProductCard = (props) => {
-  const { grid } = props;
+  const { grid, product } = props; // Receive product as a prop
+  console.log(product);
   let location = useLocation();
-
+  if (!product) return null; // If product is null, return null
   return (
-    <>
-      <div
-        className={` ${
-          location.pathname === "/product" ? `gr-${grid}` : "col-3"
-        } `}
+    <div
+      className={`${
+        location.pathname === "/product" ? `gr-${grid}` : "col-3"
+      }`}
+    >
+      <Link
+        to={`${
+          location.pathname === "/"
+            ? `/product/${product.product_id}`
+            : location.pathname === `/product/${product.product_id}`
+            ? `/product/${product.product_id}`
+            : `${product.product_id}`
+        }`}
+        className="product-card position-relative"
       >
-        <Link
-          to={`${
-            location.pathname === "/"
-              ? "/product/:id"
-              : location.pathname === "/product/:id"
-              ? "/product/:id"
-              : ":id"
-          }`}
-          className="product-card position-relative"
-        >
-          <div className="wishlist-icon position-absolute">
+        <div className="wishlist-icon position-absolute">
+          <button className="border-0 bg-transparent">
+            <img src={wish} alt="wishlist" />
+          </button>
+        </div>
+        <div className="product-image">
+          <img src={product.image} className="img-fluid" alt="product" />
+          <img src={product.image} className="img-fluid" alt="product" />
+        </div>
+        <div className="product-details">
+          <h6 className="brand">{product.brand_name}</h6>
+          <h5 className="product-title">{product.product_name}</h5>
+          <ReactStars
+            count={5}
+            size={24}
+            value={parseFloat(product.avg_rating)}
+            edit={false}
+            activeColor="#ffd700"
+          />
+          <p className={`description ${grid === 12 ? "d-block" : "d-none"}`}>
+            {product.description}
+          </p>
+          <p className="price">${product.list_price}</p>
+        </div>
+        <div className="action-bar position-absolute">
+          <div className="d-flex flex-column gap-15">
             <button className="border-0 bg-transparent">
-              <img src={wish} alt="wishlist" />
+              <img src={prodcompare} alt="compare" />
+            </button>
+            <button className="border-0 bg-transparent">
+              <img src={view} alt="view" />
+            </button>
+            <button className="border-0 bg-transparent">
+              <img src={addcart} alt="addcart" />
             </button>
           </div>
-          <div className="product-image">
-            <img src={watch} className="img-fluid" alt="product" />
-            <img src={watch2} className="img-fluid" alt="product" />
-          </div>
-          <div className="product-details">
-            <h6 className="brand">Havels</h6>
-            <h5 className="product-title">
-              Kids headphones bulk 10 pack multi colored for students
-            </h5>
-            <ReactStars
-              count={5}
-              size={24}
-              value={4}
-              edit={false}
-              activeColor="#ffd700"
-            />
-            <p className={`description ${grid === 12 ? "d-block" : "d-none"}`}>
-              At vero eos et accusamus et iusto odio dignissimos ducimus qui
-              blanditiis praesentium voluptatum deleniti atque corrupti quos
-              dolores et quas molestias excepturi sint occaecati cupiditate non
-              provident, similique sunt...
-            </p>
-            <p className="price">$100.00</p>
-          </div>
-          <div className="action-bar position-absolute">
-            <div className="d-flex flex-column gap-15">
-              <button className="border-0 bg-transparent">
-                <img src={prodcompare} alt="compare" />
-              </button>
-              <button className="border-0 bg-transparent">
-                <img src={view} alt="view" />
-              </button>
-              <button className="border-0 bg-transparent">
-                <img src={addcart} alt="addcart" />
-              </button>
-            </div>
-          </div>
-        </Link>
-      </div>
-      <div
-        className={` ${
-          location.pathname === "/product" ? `gr-${grid}` : "col-3"
-        } `}
-      >
-        <Link
-          to={`${
-            location.pathname === "/"
-              ? "/product/:id"
-              : location.pathname === "/product/:id"
-              ? "/product/:id"
-              : ":id"
-          }`}
-          className="product-card position-relative"
-        >
-          <div className="wishlist-icon position-absolute">
-            <button className="border-0 bg-transparent">
-              <img src={wish} alt="wishlist" />
-            </button>
-          </div>
-          <div className="product-image">
-            <img src={watch} className="img-fluid" alt="product" />
-            <img src={watch2} className="img-fluid" alt="product" />
-          </div>
-          <div className="product-details">
-            <h6 className="brand">Havels</h6>
-            <h5 className="product-title">
-              Kids headphones bulk 10 pack multi colored for students
-            </h5>
-            <ReactStars
-              count={5}
-              size={24}
-              value={4}
-              edit={false}
-              activeColor="#ffd700"
-            />
-            <p className={`description ${grid === 12 ? "d-block" : "d-none"}`}>
-              At vero eos et accusamus et iusto odio dignissimos ducimus qui
-              blanditiis praesentium voluptatum deleniti atque corrupti quos
-              dolores et quas molestias excepturi sint occaecati cupiditate non
-              provident, similique sunt...
-            </p>
-            <p className="price">$100.00</p>
-          </div>
-          <div className="action-bar position-absolute">
-            <div className="d-flex flex-column gap-15">
-              <button className="border-0 bg-transparent">
-                <img src={prodcompare} alt="compare" />
-              </button>
-              <button className="border-0 bg-transparent">
-                <img src={view} alt="view" />
-              </button>
-              <button className="border-0 bg-transparent">
-                <img src={addcart} alt="addcart" />
-              </button>
-            </div>
-          </div>
-        </Link>
-      </div>
-    </>
+        </div>
+      </Link>
+    </div>
   );
 };
 

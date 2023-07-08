@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import ReactStars from "react-rating-stars-component";
 import BreadCrumb from "../components/BreadCrumb";
 import Meta from "../components/Meta";
@@ -10,15 +10,33 @@ import { AiOutlineHeart } from "react-icons/ai";
 import { Link } from "react-router-dom";
 import watch from "../images/watch.jpg";
 import Container from "../components/Container";
+import { useLocation, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { getAProduct, resetState } from "../features/product/productSlice";
+import { getRatings } from "../features/rating/ratingSlice";
 const SingleProduct = () => {
-  const props = {
-    width: 594,
-    height: 600,
-    zoomWidth: 600,
+  const dispatch = useDispatch();
+  const location = useLocation();
+  const navigate = useNavigate();
+  const getProductId = location.pathname.split("/")[2];
+  console.log(getProductId);
+  useEffect(() => {
+    if (getProductId !== undefined) {
+      dispatch(getAProduct(getProductId));
+      dispatch(getRatings(getProductId));
+    } else {
+      dispatch(resetState());
+    }
+  }, [getProductId]);
+  const product = useSelector((state) => state.product.productName);
+  console.log(product);
+  const rating = useSelector((state) => state.rating.ratings);
+  console.log(rating);
 
-    img: "https://images.pexels.com/photos/190819/pexels-photo-190819.jpeg?cs=srgb&dl=pexels-fernando-arcos-190819.jpg&fm=jpg",
+  const [selectedConfig, setSelectedConfig] = useState(null);
+  const handleConfigSelect = (config) => {
+    setSelectedConfig(config);
   };
-
   const [orderedProduct, setorderedProduct] = useState(true);
   const copyToClipboard = (text) => {
     console.log("text", text);
@@ -29,7 +47,21 @@ const SingleProduct = () => {
     document.execCommand("copy");
     textField.remove();
   };
-  const closeModal = () => {};
+  const closeModal = () => { };
+  if (!product) return null;
+  const configurations = product.map((config) => ({
+    ram: config.ram,
+    rom: config.rom,
+    color: config.color,
+    image: config.image,
+  }));
+  const props = {
+    width: 594,
+    height: 600,
+    zoomWidth: 600,
+    img: selectedConfig ? selectedConfig.image : product[0]?.image,
+  };
+
   return (
     <>
       <Meta title={"Product Name"} />
@@ -42,102 +74,71 @@ const SingleProduct = () => {
                 <ReactImageZoom {...props} />
               </div>
             </div>
-            <div className="other-product-images d-flex flex-wrap gap-15">
-              <div>
-                <img
-                  src="https://images.pexels.com/photos/190819/pexels-photo-190819.jpeg?cs=srgb&dl=pexels-fernando-arcos-190819.jpg&fm=jpg"
-                  className="img-fluid"
-                  alt=""
-                />
-              </div>
-              <div>
-                <img
-                  src="https://images.pexels.com/photos/190819/pexels-photo-190819.jpeg?cs=srgb&dl=pexels-fernando-arcos-190819.jpg&fm=jpg"
-                  className="img-fluid"
-                  alt=""
-                />
-              </div>
-              <div>
-                <img
-                  src="https://images.pexels.com/photos/190819/pexels-photo-190819.jpeg?cs=srgb&dl=pexels-fernando-arcos-190819.jpg&fm=jpg"
-                  className="img-fluid"
-                  alt=""
-                />
-              </div>
-              <div>
-                <img
-                  src="https://images.pexels.com/photos/190819/pexels-photo-190819.jpeg?cs=srgb&dl=pexels-fernando-arcos-190819.jpg&fm=jpg"
-                  className="img-fluid"
-                  alt=""
-                />
-              </div>
-            </div>
+
+
           </div>
           <div className="col-6">
             <div className="main-product-details">
               <div className="border-bottom">
                 <h3 className="title">
-                  Kids Headphones Bulk 10 Pack Multi Colored For Students
+                  {product[0]?.product_name}
                 </h3>
               </div>
               <div className="border-bottom py-3">
-                <p className="price">$ 100</p>
+                <p className="price">{product[0]?.price}$</p>
                 <div className="d-flex align-items-center gap-10">
                   <ReactStars
                     count={5}
                     size={24}
-                    value={4}
+                    value={product[0]?.avg_rating}
                     edit={false}
                     activeColor="#ffd700"
                   />
-                  <p className="mb-0 t-review">( 2 Reviews )</p>
+                  <p className="mb-0 t-review">( {rating?.length} Reviews )</p>
                 </div>
                 <a className="review-btn" href="#review">
                   Write a Review
                 </a>
               </div>
               <div className=" py-3">
-                <div className="d-flex gap-10 align-items-center my-2">
-                  <h3 className="product-heading">Type :</h3>
-                  <p className="product-data">Watch</p>
-                </div>
+
                 <div className="d-flex gap-10 align-items-center my-2">
                   <h3 className="product-heading">Brand :</h3>
-                  <p className="product-data">Havells</p>
+                  <p className="product-data">{product[0]?.brand_name}</p>
                 </div>
                 <div className="d-flex gap-10 align-items-center my-2">
                   <h3 className="product-heading">Category :</h3>
-                  <p className="product-data">Watch</p>
+                  <p className="product-data">{product[0]?.category_name}</p>
                 </div>
                 <div className="d-flex gap-10 align-items-center my-2">
-                  <h3 className="product-heading">Tags :</h3>
-                  <p className="product-data">Watch</p>
+                  <h3 className="product-heading">Model Year :</h3>
+                  <p className="product-data">{product[0]?.model_year}</p>
                 </div>
                 <div className="d-flex gap-10 align-items-center my-2">
                   <h3 className="product-heading">Availablity :</h3>
-                  <p className="product-data">In Stock</p>
+                  <p className="product-data">{product[0]?.quantity > 0 ? "In Stock" : "Out of Stock"}</p>
                 </div>
                 <div className="d-flex gap-10 flex-column mt-2 mb-3">
-                  <h3 className="product-heading">Size :</h3>
-                  <div className="d-flex flex-wrap gap-15">
-                    <span className="badge border border-1 bg-white text-dark border-secondary">
-                      S
-                    </span>
-                    <span className="badge border border-1 bg-white text-dark border-secondary">
-                      M
-                    </span>
-                    <span className="badge border border-1 bg-white text-dark border-secondary">
-                      XL
-                    </span>
-                    <span className="badge border border-1 bg-white text-dark border-secondary">
-                      XXL
-                    </span>
-                  </div>
+                  <h3 className="product-heading">Configuration :</h3>
+                  {configurations.map((config, index) => (
+                    <div
+                      key={index}
+                      className="d-flex flex-wrap gap-15"
+                      onClick={() => handleConfigSelect(config)}
+                    >
+                      <span className="badge border border-1 bg-white text-dark border-secondary">
+                        <span>Ram: {config.ram} </span>
+                        <span>Rom: {config.rom} </span>
+                        <span>Color: {config.color}</span>
+                      </span>
+                    </div>
+                  ))}
                 </div>
-                <div className="d-flex gap-10 flex-column mt-2 mb-3">
+
+                {/* <div className="d-flex gap-10 flex-column mt-2 mb-3">
                   <h3 className="product-heading">Color :</h3>
                   <Color />
-                </div>
+                </div> */}
                 <div className="d-flex align-items-center gap-15 flex-row mt-2 mb-3">
                   <h3 className="product-heading">Quantity :</h3>
                   <div className="">
@@ -228,11 +229,11 @@ const SingleProduct = () => {
                     <ReactStars
                       count={5}
                       size={24}
-                      value={4}
+                      value={product[0]?.avg_rating}
                       edit={false}
                       activeColor="#ffd700"
                     />
-                    <p className="mb-0">Based on 2 Reviews</p>
+                    <p className="mb-0">Based on {rating?.length} Reviews</p>
                   </div>
                 </div>
                 {orderedProduct && (
@@ -250,7 +251,7 @@ const SingleProduct = () => {
                     <ReactStars
                       count={5}
                       size={24}
-                      value={4}
+                      value={0}
                       edit={true}
                       activeColor="#ffd700"
                     />
@@ -271,25 +272,21 @@ const SingleProduct = () => {
                 </form>
               </div>
               <div className="reviews mt-4">
-                <div className="review">
-                  <div className="d-flex gap-10 align-items-center">
-                    <h6 className="mb-0">Navdeep</h6>
-                    <ReactStars
-                      count={5}
-                      size={24}
-                      value={4}
-                      edit={false}
-                      activeColor="#ffd700"
-                    />
+                {rating.map((rating, index) => (
+                  <div className="review" key={index}>
+                    <div className="d-flex gap-10 align-items-center">
+                      <h6 className="mb-0">{rating.full_name}</h6>
+                      <ReactStars
+                        count={5}
+                        size={24}
+                        value={rating.rating_star}
+                        edit={false}
+                        activeColor="#ffd700"
+                      />
+                    </div>
+                    <p className="mt-3">{rating.comment_text}</p>
                   </div>
-                  <p className="mt-3">
-                    Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-                    Consectetur fugit ut excepturi quos. Id reprehenderit
-                    voluptatem placeat consequatur suscipit ex. Accusamus dolore
-                    quisquam deserunt voluptate, sit magni perspiciatis quas
-                    iste?
-                  </p>
-                </div>
+                ))}
               </div>
             </div>
           </div>
