@@ -1,5 +1,4 @@
-
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState} from "react";
 
 import ReactStars from "react-rating-stars-component";
 import BreadCrumb from "../components/BreadCrumb";
@@ -12,11 +11,12 @@ import { AiOutlineHeart } from "react-icons/ai";
 import { Link } from "react-router-dom";
 import watch from "../images/watch.jpg";
 import Container from "../components/Container";
-
 import { useLocation, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getAProduct, resetState } from "../features/product/productSlice";
 import { getRatings } from "../features/rating/ratingSlice";
+import { addToCart } from "../features/cart/cartSlice";
+
 const SingleProduct = () => {
   const dispatch = useDispatch();
   const location = useLocation();
@@ -41,6 +41,10 @@ const SingleProduct = () => {
     setSelectedConfig(config);
   };
 
+  const navigateToCart = () => {
+    navigate('/cart')
+  }
+
   const [orderedProduct, setorderedProduct] = useState(true);
   const copyToClipboard = (text) => {
     console.log("text", text);
@@ -52,9 +56,10 @@ const SingleProduct = () => {
     textField.remove();
   };
 
-  const closeModal = () => { };
+  const closeModal = () => {};
   if (!product) return null;
   const configurations = product.map((config) => ({
+    id: config.config_id,
     ram: config.ram,
     rom: config.rom,
     color: config.color,
@@ -79,15 +84,11 @@ const SingleProduct = () => {
                 <ReactImageZoom {...props} />
               </div>
             </div>
-
           </div>
           <div className="col-6">
             <div className="main-product-details">
               <div className="border-bottom">
-                <h3 className="title">
-
-                  {product[0]?.product_name}
-                </h3>
+                <h3 className="title">{product[0]?.product_name}</h3>
               </div>
               <div className="border-bottom py-3">
                 <p className="price">{product[0]?.price}$</p>
@@ -96,21 +97,17 @@ const SingleProduct = () => {
                   <ReactStars
                     count={5}
                     size={24}
-
                     value={product[0]?.avg_rating}
                     edit={false}
                     activeColor="#ffd700"
                   />
                   <p className="mb-0 t-review">( {rating?.length} Reviews )</p>
-
                 </div>
                 <a className="review-btn" href="#review">
                   Write a Review
                 </a>
               </div>
               <div className=" py-3">
-
-
                 <div className="d-flex gap-10 align-items-center my-2">
                   <h3 className="product-heading">Brand :</h3>
                   <p className="product-data">{product[0]?.brand_name}</p>
@@ -125,14 +122,16 @@ const SingleProduct = () => {
                 </div>
                 <div className="d-flex gap-10 align-items-center my-2">
                   <h3 className="product-heading">Availablity :</h3>
-                  <p className="product-data">{product[0]?.quantity > 0 ? "In Stock" : "Out of Stock"}</p>
+                  <p className="product-data">
+                    {product[0]?.quantity > 0 ? "In Stock" : "Out of Stock"}
+                  </p>
                 </div>
                 <div className="d-flex gap-10 flex-column mt-2 mb-3">
                   <h3 className="product-heading">Configuration :</h3>
                   {configurations.map((config, index) => (
                     <div
                       key={index}
-                      className="d-flex flex-wrap gap-15"
+                      className="d-flex flex-wrap gap-15 hover cursor-pointer"
                       onClick={() => handleConfigSelect(config)}
                     >
                       <span className="badge border border-1 bg-white text-dark border-secondary">
@@ -154,7 +153,7 @@ const SingleProduct = () => {
                   <div className="">
                     <input
                       type="number"
-                      name=""
+                      name="quantity-selected"
                       min={1}
                       max={10}
                       className="form-control"
@@ -168,6 +167,17 @@ const SingleProduct = () => {
                       data-bs-toggle="modal"
                       data-bs-target="#staticBackdrop"
                       type="button"
+                      onClick={() => {
+                        const quantitySelected = document.querySelector(
+                          'input[name="quantity-selected"]'
+                        ).value;
+                        dispatch(
+                          addToCart({
+                            config_id: selectedConfig?.id,
+                            quantity: quantitySelected,
+                          })
+                        );
+                      }}
                     >
                       Add to Cart
                     </button>
@@ -239,13 +249,11 @@ const SingleProduct = () => {
                     <ReactStars
                       count={5}
                       size={24}
-
                       value={product[0]?.avg_rating}
                       edit={false}
                       activeColor="#ffd700"
                     />
                     <p className="mb-0">Based on {rating?.length} Reviews</p>
-
                   </div>
                 </div>
                 {orderedProduct && (
@@ -263,9 +271,7 @@ const SingleProduct = () => {
                     <ReactStars
                       count={5}
                       size={24}
-
                       value={0}
-
                       edit={true}
                       activeColor="#ffd700"
                     />
@@ -286,7 +292,6 @@ const SingleProduct = () => {
                 </form>
               </div>
               <div className="reviews mt-4">
-
                 {rating.map((rating, index) => (
                   <div className="review" key={index}>
                     <div className="d-flex gap-10 align-items-center">
@@ -302,7 +307,6 @@ const SingleProduct = () => {
                     <p className="mt-3">{rating.comment_text}</p>
                   </div>
                 ))}
-
               </div>
             </div>
           </div>
@@ -324,7 +328,7 @@ const SingleProduct = () => {
         id="staticBackdrop"
         data-bs-backdrop="static"
         data-bs-keyboard="false"
-        tabindex="-1"
+        tabIndex="-1"
         aria-labelledby="staticBackdropLabel"
         aria-hidden="true"
       >
@@ -352,7 +356,7 @@ const SingleProduct = () => {
               </div>
             </div>
             <div className="modal-footer border-0 py-0 justify-content-center gap-30">
-              <button type="button" className="button" data-bs-dismiss="modal">
+              <button type="button" className="button" data-bs-dismiss="modal" onClick={navigateToCart}>
                 View My Cart
               </button>
               <button type="button" className="button signup">

@@ -756,3 +756,11 @@ footer .input-group-text {
   color: #bf4800;
 
 }
+
+.hover:hover {
+  background-color: #f8f9fa;
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
