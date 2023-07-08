@@ -1,4 +1,6 @@
-import React from "react";
+
+import React, { useEffect } from "react";
+
 import { NavLink, Link } from "react-router-dom";
 import { BsSearch } from "react-icons/bs";
 import compare from "../images/compare.svg";
@@ -6,6 +8,7 @@ import wishlist from "../images/wishlist.svg";
 import user from "../images/user.svg";
 import cart from "../images/cart.svg";
 import menu from "../images/menu.svg";
+
 import { useDispatch, useSelector } from "react-redux";
 import { getUserCart } from "../features/user/userSlice";
 const Header = () => {
@@ -20,6 +23,7 @@ const Header = () => {
   const handleCart = () => {
     dispatch(getUserCart())
   }
+
   return (
     <>
       <header className="header-upper py-3">
@@ -27,7 +31,9 @@ const Header = () => {
           <div className="row align-items-center">
             <div className="col-2">
               <h2>
+
                 <Link to={'/'} className="text-white">KellPHONES</Link>
+
               </h2>
             </div>
             <div className="col-5">
@@ -70,6 +76,7 @@ const Header = () => {
                 </div>
                 <div>
                   <Link
+
                     to={authState?.user === "" ? "/login" : ""}
                     className="d-flex align-items-center gap-10 text-white"
                   >
@@ -84,12 +91,15 @@ const Header = () => {
                         Welcome {authState?.user?.name}
                       </p> 
                     }
+
                   </Link>
                 </div>
                 <div>
                   <Link
                     to="/cart"
+
                     onClick={handleCart}
+
                     className="d-flex align-items-center gap-10 text-white"
                   >
                     <img src={cart} alt="cart" />
@@ -99,6 +109,7 @@ const Header = () => {
                     </div>
                   </Link>
                 </div>
+
               </div>
             </div>
           </div>
@@ -129,17 +140,23 @@ const Header = () => {
                     >
                       <li>
                         <Link className="dropdown-item text-white" to="">
+
                           Action
+
                         </Link>
                       </li>
                       <li>
                         <Link className="dropdown-item text-white" to="">
+
                           Another action
+
                         </Link>
                       </li>
                       <li>
                         <Link className="dropdown-item text-white" to="">
+
                           Something else here
+
                         </Link>
                       </li>
                     </ul>
@@ -151,7 +168,9 @@ const Header = () => {
                     <NavLink to="/product">Our Store</NavLink>
                     <NavLink to="/blogs">Blogs</NavLink>
                     <NavLink to="/contact">Contact</NavLink>
+
                     <button onClick={handleLogout} className="border border-0 bg-transparent text-white text-uppercase" type="button">Logout</button>
+
                   </div>
                 </div>
               </div>
@@ -163,4 +182,6 @@ const Header = () => {
   );
 };
 
+
 export default Header;
+

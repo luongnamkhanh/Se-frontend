@@ -4,6 +4,7 @@ import Meta from "../components/Meta";
 import { useState } from "react";
 import Container from "../components/Container";
 import CustomInput from "../components/CustomInput";
+
 import { useNavigate } from "react-router-dom";
 
 const Register = () => {

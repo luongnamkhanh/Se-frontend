@@ -4,6 +4,7 @@ import Meta from "../components/Meta";
 import { Link } from "react-router-dom";
 import Container from "../components/Container";
 import CustomInput from "../components/CustomInput";
+
 import { useFormik } from "formik";
 import * as yup from "yup";
 import { useDispatch } from "react-redux";
@@ -37,6 +38,7 @@ const Signup = () => {
       dispatch(registerUser(values))
     },
   });
+
   return (
     <>
       <Meta title={"Sign Up"} />
@@ -46,6 +48,7 @@ const Signup = () => {
           <div className="col-12">
             <div className="auth-card">
               <h3 className="text-center mb-3">Sign Up</h3>
+
               <form
                 action=""
                 className="d-flex flex-column gap-15"
@@ -95,10 +98,12 @@ const Signup = () => {
                 <div className="error">
                   {formik.touched.phone && formik.errors.phone}
                 </div>
+
                 <CustomInput
                   type="password"
                   name="password"
                   placeholder="Password"
+
                   value={formik.values.password}
                   onChange={formik.handleChange("password")}
                   onBlur={formik.handleBlur("password")}
@@ -127,6 +132,7 @@ const Signup = () => {
                 <div className="error">
                   {formik.touched.city && formik.errors.city}
                 </div>
+
                 <div>
                   <div className="mt-3 d-flex justify-content-center gap-15 align-items-center">
                     <button className="button border-0">Sign Up</button>

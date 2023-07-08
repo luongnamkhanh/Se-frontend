@@ -5,6 +5,7 @@ import watch from "../images/watch.jpg";
 import { AiFillDelete } from "react-icons/ai";
 import { Link } from "react-router-dom";
 import Container from "../components/Container";
+
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { getUserCart } from "../features/user/userSlice";
@@ -14,6 +15,7 @@ const Cart = () => {
   useEffect(() => {
     dispatch(getUserCart())
   }, [dispatch])
+
 
   return (
     <>

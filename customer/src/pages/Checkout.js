@@ -3,11 +3,13 @@ import { Link } from "react-router-dom";
 import { BiArrowBack } from "react-icons/bi";
 import watch from "../images/watch.jpg";
 import Container from "../components/Container";
+
 import { useDispatch, useSelector } from "react-redux";
 
 const Checkout = () => {
   const dispatch = useDispatch();
   // const cartState = useSelector(state => state.auth.)
+
   return (
     <>
       <Container class1="checkout-wrapper py-5 home-wrapper-2">

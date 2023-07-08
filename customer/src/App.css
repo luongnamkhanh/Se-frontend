@@ -749,8 +749,10 @@ footer .input-group-text {
 .user-form form{
   display: flex;
   flex-direction: column;
+
 }
 
 .error {
   color: #bf4800;
+
 }

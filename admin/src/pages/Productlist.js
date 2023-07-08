@@ -77,13 +77,16 @@ const Productlist = () => {
   const data = productState?.map((product, index) => ({
     key: product.product_id,
     title: product.product_name,
+
     brand: product.brand_name,
     category: product.category_name,
+
     modelYear: product.model_year,
     price: product.list_price,
     averageRating: product.avg_rating,
     reviews: product.total_review,
     discontinued: product.discontinued ? "Yes" : "No",
+
     action: (
       <>
         {/* <Link
@@ -92,6 +95,7 @@ const Productlist = () => {
         >
           <BiEdit />
         </Link> */}
+
         <button
           className="ms-3 fs-3 text-danger bg-transparent border-0"
           onClick={() => showModal(product.product_id)}
@@ -100,6 +104,7 @@ const Productlist = () => {
         </button>
       </>
     ),
+
   }));
 
   const deleteProduct = (e) => {

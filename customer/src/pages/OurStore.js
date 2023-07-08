@@ -1,4 +1,6 @@
-import React, { useState } from "react";
+
+import React, { useEffect, useState } from "react";
+
 import BreadCrumb from "../components/BreadCrumb";
 import Meta from "../components/Meta";
 import ReactStars from "react-rating-stars-component";
@@ -6,8 +8,21 @@ import ProductCard from "../components/ProductCard";
 import Color from "../components/Color";
 import Container from "../components/Container";
 
+import { useDispatch, useSelector } from "react-redux";
+import { getProducts, resetState } from "../features/product/productSlice";
+
+
+
 const OurStore = () => {
   const [grid, setGrid] = useState(4);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getProducts());
+    dispatch(resetState());
+  }, []);
+  const productState = useSelector((state) => state.product.products);
+  console.log(productState)
+
   return (
     <>
       <Meta title={"Our Store"} />
@@ -219,14 +234,18 @@ const OurStore = () => {
                       className="d-block img-fluid"
                       alt="grid"
                     />
-                    <img
+
+                    {/* <img
+
                       onClick={() => {
                         setGrid(6);
                       }}
                       src="images/gr2.svg"
                       className="d-block img-fluid"
                       alt="grid"
-                    />
+
+                    /> */}
+
 
                     <img
                       onClick={() => {
@@ -242,7 +261,15 @@ const OurStore = () => {
             </div>
             <div className="products-list pb-5">
               <div className="d-flex gap-10 flex-wrap">
-                <ProductCard grid={grid} />
+
+                {productState.map((product, index) => (
+                  <ProductCard
+                    key={index}
+                    grid={grid}
+                    product={product}
+                  />
+                ))}
+
               </div>
             </div>
           </div>
