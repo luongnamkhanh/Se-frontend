@@ -20,9 +20,9 @@ const Header = () => {
     window.location.reload()
   }  
 
-  const handleCart = () => {
-    dispatch(getUserCart())
-  }
+  // const handleCart = () => {
+  //   dispatch(getUserCart())
+  // }
 
   return (
     <>
@@ -97,9 +97,7 @@ const Header = () => {
                 <div>
                   <Link
                     to="/cart"
-
-                    onClick={handleCart}
-
+                    // onClick={handleCart}
                     className="d-flex align-items-center gap-10 text-white"
                   >
                     <img src={cart} alt="cart" />
