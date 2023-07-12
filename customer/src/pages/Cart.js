@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import BreadCrumb from "../components/BreadCrumb";
 import Meta from "../components/Meta";
 import watch from "../images/watch.jpg";
@@ -7,6 +7,9 @@ import { Link } from "react-router-dom";
 import Container from "../components/Container";
 import { useDispatch, useSelector } from "react-redux";
 import { getUserCart } from "../features/user/userSlice";
+import { removeCart, removeAllCart } from "../features/cart/cartSlice";
+import CustomModal from "../components/CustomModal";
+
 const Cart = () => {
   const dispatch = useDispatch();
   useEffect(() => {
@@ -16,6 +19,33 @@ const Cart = () => {
   const cart = useSelector((state) => state.auth.cartProducts)
   console.log(cart)
 
+  const [open, setOpen] = useState(false);
+  const [configId, setConfigId] = useState("");
+  const showModal = (e) => {
+    setOpen(true);
+    setConfigId(e);
+  };
+  const showModal1 = () => {
+    setOpen(true);
+  };
+  const hideModal = () => {
+    setOpen(false);
+  };
+  const removeACart = (e) => {
+    dispatch(removeCart(e));
+
+    setOpen(false);
+    setTimeout(() => {
+      dispatch(getUserCart());
+    }, 100);
+  };
+  const removeAll = () => {
+    dispatch(removeAllCart());
+    setOpen(false);
+    setTimeout(() => {
+      dispatch(getUserCart());
+    }, 100);
+  };
   return (
     <>
       <Meta title={"Cart"} />
@@ -58,9 +88,12 @@ const Cart = () => {
                       disabled
                     />
                   </div>
-                  <div>
-                    <AiFillDelete className="text-danger " />
-                  </div>
+                  <button
+                    className="ms-3 fs-3 text-danger bg-transparent border-0"
+                    onClick={() => showModal(item.config_id)}
+                  >
+                    <AiFillDelete />
+                  </button>
                 </div>
                 <div className="cart-col-4">
                   <h5 className="price">$ {item.total_price}</h5>
@@ -70,9 +103,20 @@ const Cart = () => {
           </div>
           <div className="col-12 py-2 mt-4">
             <div className="d-flex justify-content-between align-items-baseline">
+              <div>
               <Link to="/product" className="button">
                 Continue To Shopping
               </Link>
+              <br /><br />
+              <button
+                className="button"
+                onClick={() => showModal1()}
+              >
+                {/* <AiFillDelete /> */}
+                Clear Cart
+              </button>
+              </div>
+              
               <div className="d-flex flex-column align-items-end">
                 <h4>SubTotal: $ 1000</h4>
                 <p>Taxes and shipping calculated at checkout</p>
@@ -81,9 +125,26 @@ const Cart = () => {
                 </Link>
               </div>
             </div>
+            
           </div>
         </div>
       </Container>
+      <CustomModal
+        hideModal={hideModal}
+        open={open}
+        performAction={() => {
+          removeACart(configId);
+        }}
+        title="Are you sure you want to delete this?"
+      />
+      <CustomModal
+        hideModal={hideModal}
+        open={open}
+        performAction={() => {
+          removeAll();
+        }}
+        title="Are you sure you want to delete all the product?"
+      />
     </>
   );
 };

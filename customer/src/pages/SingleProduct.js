@@ -1,4 +1,4 @@
-import React, { useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 
 import ReactStars from "react-rating-stars-component";
 import BreadCrumb from "../components/BreadCrumb";
@@ -14,7 +14,7 @@ import Container from "../components/Container";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getAProduct, resetState } from "../features/product/productSlice";
-import { getRatings } from "../features/rating/ratingSlice";
+import { getRatings, createRating } from "../features/rating/ratingSlice";
 import { addToCart } from "../features/cart/cartSlice";
 
 const SingleProduct = () => {
@@ -33,9 +33,12 @@ const SingleProduct = () => {
   }, [getProductId]);
   const product = useSelector((state) => state.product.productName);
   console.log(product);
+  const [ratingList, setRatingList] = useState([]);
   const rating = useSelector((state) => state.rating.ratings);
-  console.log(rating);
-
+  useEffect(() => {
+    setRatingList(rating);
+  }, [rating]);
+  console.log(ratingList);
   const [selectedConfig, setSelectedConfig] = useState(null);
   const handleConfigSelect = (config) => {
     setSelectedConfig(config);
@@ -55,8 +58,45 @@ const SingleProduct = () => {
     document.execCommand("copy");
     textField.remove();
   };
+  //
+  const [ratingText, setRatingText] = useState("");
+  const [ratingStars, setRatingStars] = useState(0);
+  const name = localStorage.getItem("name");
+  const handleRatingStarsChange = (newRating) => {
+    setRatingStars(newRating);
+  };
 
-  const closeModal = () => {};
+  const handleRatingTextChange = (event) => {
+    setRatingText(event.target.value);
+  };
+  const handleSubmitReview = async (event) => {
+    event.preventDefault();
+    const data = {
+      product_id: getProductId,
+      rating_star: ratingStars,
+      comment_text: ratingText,
+    };
+    console.log(data);
+    dispatch(createRating(data))
+      .then(() => {
+        const newRating = {
+          full_name: name, // Replace with the appropriate name
+          rating_star: ratingStars,
+          comment_text: ratingText,
+        };
+        setRatingText("");
+        setRatingStars(0);
+        setRatingList((prevRating) => [...prevRating, newRating]);
+        console.log(ratingList);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
+
+
+  //
+  const closeModal = () => { };
   if (!product) return null;
   const configurations = product.map((config) => ({
     id: config.config_id,
@@ -101,7 +141,7 @@ const SingleProduct = () => {
                     edit={false}
                     activeColor="#ffd700"
                   />
-                  <p className="mb-0 t-review">( {rating?.length} Reviews )</p>
+                  <p className="mb-0 t-review">( {ratingList?.length} Reviews )</p>
                 </div>
                 <a className="review-btn" href="#review">
                   Write a Review
@@ -253,7 +293,7 @@ const SingleProduct = () => {
                       edit={false}
                       activeColor="#ffd700"
                     />
-                    <p className="mb-0">Based on {rating?.length} Reviews</p>
+                    <p className="mb-0">Based on {ratingList?.length} Reviews</p>
                   </div>
                 </div>
                 {orderedProduct && (
@@ -266,33 +306,36 @@ const SingleProduct = () => {
               </div>
               <div className="review-form py-4">
                 <h4>Write a Review</h4>
-                <form action="" className="d-flex flex-column gap-15">
+                <form onSubmit={handleSubmitReview} className="d-flex flex-column gap-15">
                   <div>
                     <ReactStars
                       count={5}
                       size={24}
-                      value={0}
+                      value={ratingStars}
                       edit={true}
                       activeColor="#ffd700"
+                      onChange={handleRatingStarsChange}
                     />
                   </div>
                   <div>
                     <textarea
-                      name=""
-                      id=""
+                      name="ratingText"
+                      id="ratingText"
                       className="w-100 form-control"
                       cols="30"
                       rows="4"
                       placeholder="Comments"
+                      value={ratingText}
+                      onChange={handleRatingTextChange}
                     ></textarea>
                   </div>
                   <div className="d-flex justify-content-end">
-                    <button className="button border-0">Submit Review</button>
+                    <button type="submit" className="button border-0">Submit Review</button>
                   </div>
                 </form>
               </div>
               <div className="reviews mt-4">
-                {rating.map((rating, index) => (
+                {ratingList.map((rating, index) => (
                   <div className="review" key={index}>
                     <div className="d-flex gap-10 align-items-center">
                       <h6 className="mb-0">{rating.full_name}</h6>

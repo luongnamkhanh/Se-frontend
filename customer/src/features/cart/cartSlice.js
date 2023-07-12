@@ -13,6 +13,30 @@ export const addToCart = createAsyncThunk(
   }
 );
 
+export const removeCart = createAsyncThunk(
+  "cart/remove",
+  async (cartData, thunkAPI) => {
+    try {
+      return await cartService.removeCart(cartData);
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+);
+
+export const removeAllCart = createAsyncThunk(
+  "cart/removeAll",
+  async (cartData, thunkAPI) => {
+    try {
+      return await cartService.removeAllCart(cartData);
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+);
+
+
+
 const initialState = {
   cart: "",
   isError: false,
@@ -47,7 +71,54 @@ export const cartSlice = createSlice({
         if (state.isError === true) {
           toast.error("Error", { autoClose: 2000 });
         }
-      });
+      })
+      .addCase(removeCart.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(removeCart.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isError = false;
+        state.isSuccess = true;
+        state.removedCart = action.payload;
+        if (state.isSuccess === true) {
+          toast.success("Product remove successfully", { autoClose: 2000 });
+        }
+      }
+      )
+      .addCase(removeCart.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.isSuccess = false;
+        state.messsage = action.error;
+        if (state.isError === true) {
+          toast.error("Error", { autoClose: 2000 });
+        }
+      }
+      )
+      .addCase(removeAllCart.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(removeAllCart.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isError = false;
+        state.isSuccess = true;
+        state.removedAllCart = action.payload;
+        if (state.isSuccess === true) {
+          toast.success("Product remove successfully", { autoClose: 2000 });
+        }
+      }
+      )
+      .addCase(removeAllCart.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.isSuccess = false;
+        state.messsage = action.error;
+        if (state.isError === true) {
+          toast.error("Error", { autoClose: 2000 });
+        }
+      }
+      )
+      ;
   },
 });
 

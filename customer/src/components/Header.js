@@ -14,7 +14,8 @@ import { getUserCart } from "../features/user/userSlice";
 const Header = () => {
   const dispatch = useDispatch();
   const authState = useSelector(state => state.auth)
-
+  const name = localStorage.getItem("name");
+  console.log(name);
   const handleLogout = () => {
     localStorage.clear();
     window.location.reload()
@@ -77,18 +78,18 @@ const Header = () => {
                 <div>
                   <Link
 
-                    to={authState?.user === "" ? "/login" : ""}
+                    to={name === null ? "/login" : ""}
                     className="d-flex align-items-center gap-10 text-white"
                   >
                     <img src={user} alt="user" />
                     {
-                      authState?.user === "" ? 
+                      name === null ? 
                       <p className="mb-0">
                         Log in <br /> My Account
                       </p> 
                       : 
                       <p className="mb-0">
-                        Welcome {authState?.user?.name}
+                        Welcome {name}
                       </p> 
                     }
 

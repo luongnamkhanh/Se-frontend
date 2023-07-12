@@ -7,7 +7,18 @@ const addCart = async (cartData) => {
     if(res.data)
         return res.data;
 }
-
+const removeCart = async (config_id) => {
+    const res = await axios.delete(`${base_url}cart/${config_id}`, config);
+    if(res.data)
+        return res.data;
+}
+const removeAllCart = async () => {
+    const res = await axios.delete(`${base_url}cart/empty-cart`, config);
+    if(res.data)
+        return res.data;
+}
 export const cartService = {
-    addCart
+    addCart,
+    removeCart,
+    removeAllCart
 }  
