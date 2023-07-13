@@ -98,7 +98,7 @@ const Header = () => {
                 <div>
                   <Link
 
-                    to={name === null ? "/login" : ""}
+                    to={name === null ? "/login" : "/profile"}
                     className="d-flex align-items-center gap-10 text-white"
                   >
                     <img src={user} alt="user" />
@@ -109,7 +109,7 @@ const Header = () => {
                       </p> 
                       : 
                       <p className="mb-0">
-                        Welcome <br/>    {name}
+                        Welcome <br/> {name}
                       </p> 
                     }
 
@@ -187,9 +187,12 @@ const Header = () => {
                     <NavLink to="/product">Our Store</NavLink>
                     <NavLink to="/blogs">Blogs</NavLink>
                     <NavLink to="/contact">Contact</NavLink>
-
-                    <button onClick={handleLogout} className="border border-0 bg-transparent text-white text-uppercase" type="button">Logout</button>
-
+                    {
+                      name === null ? 
+                      ""
+                      : 
+                      <button onClick={handleLogout} className="border border-0 bg-transparent text-white text-uppercase" type="button">Logout</button>
+                    }
                   </div>
                 </div>
               </div>

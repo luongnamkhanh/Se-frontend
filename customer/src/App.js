@@ -10,9 +10,8 @@ import CompareProduct from "./pages/CompareProduct";
 import Wishlist from "./pages/Wishlist";
 import Blog from './pages/Blog';
 import Login from './pages/Login';
-
 import Register from './pages/Signup';
-
+import Profile from './pages/Profile';
 import SingleBlog from "./pages/SingleBlog";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
 import RefundPloicy from "./pages/RefundPloicy";
@@ -46,6 +45,7 @@ function App() {
             <Route path="wishlist" element={<Wishlist />} />
             <Route path='login' element={<Login />}/>
             <Route path='register' element={<Register/>} />
+            <Route path='profile' element={<Profile/>} />
             <Route path="privacy-policy" element={<PrivacyPolicy />} />
             <Route path="refund-policy" element={<RefundPloicy />} />
             <Route path="shipping-policy" element={<ShippingPolicy />} />

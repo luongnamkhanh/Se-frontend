@@ -168,19 +168,15 @@ const SingleProduct = () => {
                 </div>
                 <div className="d-flex gap-10 flex-column mt-2 mb-3">
                   <h3 className="product-heading">Configuration :</h3>
-                  {configurations.map((config, index) => (
-                    <div
-                      key={index}
-                      className="d-flex flex-wrap gap-15 hover cursor-pointer"
-                      onClick={() => handleConfigSelect(config)}
-                    >
-                      <span className="badge border border-1 bg-white text-dark border-secondary">
-                        <span>Ram: {config.ram} </span>
-                        <span>Rom: {config.rom} </span>
-                        <span>Color: {config.color}</span>
-                      </span>
-                    </div>
-                  ))}
+                  <select onChange={e => handleConfigSelect(configurations[e.target.value])}>
+                    {configurations.map((config, index) => (
+                      <option key={index} value={index}>
+                        {config.ram !== null ? `Ram: ${config.ram}` : ""}
+                        {config.rom !== null ? ` Rom: ${config.rom} ` : ""} 
+                        Color: {config.color}
+                      </option>
+                    ))}
+                  </select>
                 </div>
 
                 {/* <div className="d-flex gap-10 flex-column mt-2 mb-3">
@@ -208,7 +204,7 @@ const SingleProduct = () => {
                       data-bs-target="#staticBackdrop"
                       type="button"
                       onClick={() => {
-                        const selectedQuantity  = document.querySelector(
+                        const selectedQuantity = document.querySelector(
                           'input[name="quantity-selected"]'
                         ).value;
                         setQuantitySelected(selectedQuantity);
