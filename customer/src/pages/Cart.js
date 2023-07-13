@@ -18,30 +18,38 @@ const Cart = () => {
 
   const cart = useSelector((state) => state.auth.cartProducts)
   console.log(cart)
-
-  const [open, setOpen] = useState(false);
+  const calculateTotalPrice = () => {
+    let totalPrice = 0;
+    cart.forEach((item) => {
+      totalPrice += parseFloat(item.total_price);
+    });
+    return totalPrice;
+  };
+  const [openDeleteModal, setOpenDeleteModal] = useState(false);
+  const [openClearModal, setOpenClearModal] = useState(false);
   const [configId, setConfigId] = useState("");
   const showModal = (e) => {
-    setOpen(true);
+    setOpenDeleteModal(true);
     setConfigId(e);
   };
   const showModal1 = () => {
-    setOpen(true);
+    setOpenClearModal(true);
   };
   const hideModal = () => {
-    setOpen(false);
+    setOpenDeleteModal(false);
+    setOpenClearModal(false);
   };
   const removeACart = (e) => {
     dispatch(removeCart(e));
 
-    setOpen(false);
+    setOpenDeleteModal(false);
     setTimeout(() => {
       dispatch(getUserCart());
     }, 100);
   };
   const removeAll = () => {
     dispatch(removeAllCart());
-    setOpen(false);
+    setOpenClearModal(false);
     setTimeout(() => {
       dispatch(getUserCart());
     }, 100);
@@ -104,34 +112,34 @@ const Cart = () => {
           <div className="col-12 py-2 mt-4">
             <div className="d-flex justify-content-between align-items-baseline">
               <div>
-              <Link to="/product" className="button">
-                Continue To Shopping
-              </Link>
-              <br /><br />
-              <button
-                className="button"
-                onClick={() => showModal1()}
-              >
-                {/* <AiFillDelete /> */}
-                Clear Cart
-              </button>
+                <Link to="/product" className="button">
+                  Continue To Shopping
+                </Link>
+                <br /><br />
+                <button
+                  className="button"
+                  onClick={() => showModal1()}
+                >
+                  {/* <AiFillDelete /> */}
+                  Clear Cart
+                </button>
               </div>
-              
+
               <div className="d-flex flex-column align-items-end">
-                <h4>SubTotal: $ 1000</h4>
+                <h4>SubTotal: $ {calculateTotalPrice()}</h4>
                 <p>Taxes and shipping calculated at checkout</p>
                 <Link to="/checkout" className="button">
                   Checkout
                 </Link>
               </div>
             </div>
-            
+
           </div>
         </div>
       </Container>
       <CustomModal
         hideModal={hideModal}
-        open={open}
+        open={openDeleteModal}
         performAction={() => {
           removeACart(configId);
         }}
@@ -139,7 +147,7 @@ const Cart = () => {
       />
       <CustomModal
         hideModal={hideModal}
-        open={open}
+        open={openClearModal}
         performAction={() => {
           removeAll();
         }}

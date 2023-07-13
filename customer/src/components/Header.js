@@ -6,7 +6,7 @@ import { BsSearch } from "react-icons/bs";
 import compare from "../images/compare.svg";
 import wishlist from "../images/wishlist.svg";
 import user from "../images/user.svg";
-import cart from "../images/cart.svg";
+import cartImg from "../images/cart.svg";
 import menu from "../images/menu.svg";
 
 import { useDispatch, useSelector } from "react-redux";
@@ -21,10 +21,30 @@ const Header = () => {
     window.location.reload()
   }  
 
-  // const handleCart = () => {
-  //   dispatch(getUserCart())
-  // }
+  useEffect(() => {
+    dispatch(getUserCart())
+  }, [])
+  const cart = useSelector((state) => state.auth.cartProducts)
+  console.log(cart)
+  const calculateTotalPrice = () => {
+    if (!cart) return 0;
 
+    let totalPrice = 0;
+    cart.forEach((item) => {
+      totalPrice += parseFloat(item.total_price);
+    });
+    return totalPrice.toFixed(2);
+  };
+
+  const calculateTotalItem = () => {
+    if (!cart) return 0;
+
+    let totalItem = 0;
+    cart.forEach((item) => {
+      totalItem += 1;
+    });
+    return totalItem;
+  };
   return (
     <>
       <header className="header-upper py-3">
@@ -89,7 +109,7 @@ const Header = () => {
                       </p> 
                       : 
                       <p className="mb-0">
-                        Welcome {name}
+                        Welcome <br/>    {name}
                       </p> 
                     }
 
@@ -101,10 +121,10 @@ const Header = () => {
                     // onClick={handleCart}
                     className="d-flex align-items-center gap-10 text-white"
                   >
-                    <img src={cart} alt="cart" />
+                    <img src={cartImg} alt="cart" />
                     <div className="d-flex flex-column gap-10">
-                      <span className="badge bg-white text-dark">0</span>
-                      <p className="mb-0">$ 500</p>
+                      <span className="badge bg-white text-dark">{cart ? calculateTotalItem() : 0}</span>
+                      <p className="mb-0">${cart ? calculateTotalPrice() : 0}</p>
                     </div>
                   </Link>
                 </div>

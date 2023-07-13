@@ -43,7 +43,7 @@ const SingleProduct = () => {
   const handleConfigSelect = (config) => {
     setSelectedConfig(config);
   };
-
+  const [quantitySelected, setQuantitySelected] = useState(null);
   const navigateToCart = () => {
     navigate('/cart')
   }
@@ -208,13 +208,14 @@ const SingleProduct = () => {
                       data-bs-target="#staticBackdrop"
                       type="button"
                       onClick={() => {
-                        const quantitySelected = document.querySelector(
+                        const selectedQuantity  = document.querySelector(
                           'input[name="quantity-selected"]'
                         ).value;
+                        setQuantitySelected(selectedQuantity);
                         dispatch(
                           addToCart({
                             config_id: selectedConfig?.id,
-                            quantity: quantitySelected,
+                            quantity: selectedQuantity,
                           })
                         );
                       }}
@@ -388,13 +389,13 @@ const SingleProduct = () => {
             <div className="modal-body py-0">
               <div className="d-flex align-items-center">
                 <div className="flex-grow-1 w-50">
-                  <img src={watch} className="img-fluid" alt="product imgae" />
+                  <img src={selectedConfig?.image} className="img-fluid" alt="product imgae" />
                 </div>
                 <div className="d-flex flex-column flex-grow-1 w-50">
-                  <h6 className="mb-3">Apple Watch</h6>
-                  <p className="mb-1">Quantity: asgfd</p>
-                  <p className="mb-1">Color: asgfd</p>
-                  <p className="mb-1">Size: asgfd</p>
+                  <h6 className="mb-3">{product[0]?.product_name}</h6>
+                  <p className="mb-1">Quantity: {quantitySelected}</p>
+                  <p className="mb-1">Color: {selectedConfig?.color}</p>
+                  {/* <p className="mb-1">Size: asgfd</p> */}
                 </div>
               </div>
             </div>
