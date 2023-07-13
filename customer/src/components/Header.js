@@ -1,4 +1,3 @@
-
 import React, { useEffect } from "react";
 
 import { NavLink, Link } from "react-router-dom";
@@ -13,12 +12,17 @@ import { useDispatch, useSelector } from "react-redux";
 import { getUserCart } from "../features/user/userSlice";
 const Header = () => {
   const dispatch = useDispatch();
+<<<<<<< Updated upstream
   const authState = useSelector(state => state.auth)
 
+=======
+  const authState = useSelector((state) => state.auth);
+  const name = localStorage.getItem("name");
+>>>>>>> Stashed changes
   const handleLogout = () => {
     localStorage.clear();
-    window.location.reload()
-  }  
+    window.location.reload();
+  };
 
   // const handleCart = () => {
   //   dispatch(getUserCart())
@@ -31,9 +35,9 @@ const Header = () => {
           <div className="row align-items-center">
             <div className="col-2">
               <h2>
-
-                <Link to={'/'} className="text-white">KellPHONES</Link>
-
+                <Link to={"/"} className="text-white">
+                  KellPHONES
+                </Link>
               </h2>
             </div>
             <div className="col-5">
@@ -76,6 +80,7 @@ const Header = () => {
                 </div>
                 <div>
                   <Link
+<<<<<<< Updated upstream
 
                     to={authState?.user === "" ? "/login" : ""}
                     className="d-flex align-items-center gap-10 text-white"
@@ -92,6 +97,19 @@ const Header = () => {
                       </p> 
                     }
 
+=======
+                    to={name === null ? "/login" : "/profile"}
+                    className="d-flex align-items-center gap-10 text-white"
+                  >
+                    <img src={user} alt="user" />
+                    {name === null ? (
+                      <p className="mb-0">
+                        Log in <br /> My Account
+                      </p>
+                    ) : (
+                      <p className="mb-0">Welcome {name}</p>
+                    )}
+>>>>>>> Stashed changes
                   </Link>
                 </div>
                 <div>
@@ -107,7 +125,6 @@ const Header = () => {
                     </div>
                   </Link>
                 </div>
-
               </div>
             </div>
           </div>
@@ -138,23 +155,17 @@ const Header = () => {
                     >
                       <li>
                         <Link className="dropdown-item text-white" to="">
-
                           Action
-
                         </Link>
                       </li>
                       <li>
                         <Link className="dropdown-item text-white" to="">
-
                           Another action
-
                         </Link>
                       </li>
                       <li>
                         <Link className="dropdown-item text-white" to="">
-
                           Something else here
-
                         </Link>
                       </li>
                     </ul>
@@ -166,9 +177,17 @@ const Header = () => {
                     <NavLink to="/product">Our Store</NavLink>
                     <NavLink to="/blogs">Blogs</NavLink>
                     <NavLink to="/contact">Contact</NavLink>
-
-                    <button onClick={handleLogout} className="border border-0 bg-transparent text-white text-uppercase" type="button">Logout</button>
-
+                    {name === null ? (
+                      ""
+                    ) : (
+                      <button
+                        onClick={handleLogout}
+                        className="border border-0 bg-transparent text-white text-uppercase"
+                        type="button"
+                      >
+                        Logout
+                      </button>
+                    )}
                   </div>
                 </div>
               </div>
@@ -180,6 +199,4 @@ const Header = () => {
   );
 };
 
-
 export default Header;
-
