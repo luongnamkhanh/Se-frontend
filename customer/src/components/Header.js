@@ -15,7 +15,7 @@ const Header = () => {
   const dispatch = useDispatch();
   const authState = useSelector(state => state.auth)
   const name = localStorage.getItem("name");
-  console.log(name);
+
   const handleLogout = () => {
     localStorage.clear();
     window.location.reload()
@@ -25,7 +25,7 @@ const Header = () => {
     dispatch(getUserCart())
   }, [])
   const cart = useSelector((state) => state.auth.cartProducts)
-  console.log(cart)
+
   const calculateTotalPrice = () => {
     if (!cart) return 0;
 

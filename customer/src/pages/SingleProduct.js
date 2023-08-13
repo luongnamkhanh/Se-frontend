@@ -45,8 +45,8 @@ const SingleProduct = () => {
   };
   const [quantitySelected, setQuantitySelected] = useState(null);
   const navigateToCart = () => {
-    navigate('/cart')
-  }
+    navigate("/cart");
+  };
 
   const [orderedProduct, setorderedProduct] = useState(true);
   const copyToClipboard = (text) => {
@@ -94,9 +94,8 @@ const SingleProduct = () => {
       });
   };
 
-
   //
-  const closeModal = () => { };
+  const closeModal = () => {};
   if (!product) return null;
   const configurations = product.map((config) => ({
     id: config.config_id,
@@ -141,7 +140,9 @@ const SingleProduct = () => {
                     edit={false}
                     activeColor="#ffd700"
                   />
-                  <p className="mb-0 t-review">( {ratingList?.length} Reviews )</p>
+                  <p className="mb-0 t-review">
+                    ( {ratingList?.length} Reviews )
+                  </p>
                 </div>
                 <a className="review-btn" href="#review">
                   Write a Review
@@ -168,11 +169,15 @@ const SingleProduct = () => {
                 </div>
                 <div className="d-flex gap-10 flex-column mt-2 mb-3">
                   <h3 className="product-heading">Configuration :</h3>
-                  <select onChange={e => handleConfigSelect(configurations[e.target.value])}>
+                  <select
+                    onChange={(e) =>
+                      handleConfigSelect(configurations[e.target.value])
+                    }
+                  >
                     {configurations.map((config, index) => (
                       <option key={index} value={index}>
                         {config.ram !== null ? `Ram: ${config.ram}` : ""}
-                        {config.rom !== null ? ` Rom: ${config.rom} ` : ""} 
+                        {config.rom !== null ? ` Rom: ${config.rom} ` : ""}
                         Color: {config.color}
                       </option>
                     ))}
@@ -290,7 +295,9 @@ const SingleProduct = () => {
                       edit={false}
                       activeColor="#ffd700"
                     />
-                    <p className="mb-0">Based on {ratingList?.length} Reviews</p>
+                    <p className="mb-0">
+                      Based on {ratingList?.length} Reviews
+                    </p>
                   </div>
                 </div>
                 {orderedProduct && (
@@ -303,7 +310,10 @@ const SingleProduct = () => {
               </div>
               <div className="review-form py-4">
                 <h4>Write a Review</h4>
-                <form onSubmit={handleSubmitReview} className="d-flex flex-column gap-15">
+                <form
+                  onSubmit={handleSubmitReview}
+                  className="d-flex flex-column gap-15"
+                >
                   <div>
                     <ReactStars
                       count={5}
@@ -327,7 +337,9 @@ const SingleProduct = () => {
                     ></textarea>
                   </div>
                   <div className="d-flex justify-content-end">
-                    <button type="submit" className="button border-0">Submit Review</button>
+                    <button type="submit" className="button border-0">
+                      Submit Review
+                    </button>
                   </div>
                 </form>
               </div>
@@ -385,7 +397,11 @@ const SingleProduct = () => {
             <div className="modal-body py-0">
               <div className="d-flex align-items-center">
                 <div className="flex-grow-1 w-50">
-                  <img src={selectedConfig?.image} className="img-fluid" alt="product imgae" />
+                  <img
+                    src={selectedConfig?.image}
+                    className="img-fluid"
+                    alt="product imgae"
+                  />
                 </div>
                 <div className="d-flex flex-column flex-grow-1 w-50">
                   <h6 className="mb-3">{product[0]?.product_name}</h6>
@@ -396,7 +412,12 @@ const SingleProduct = () => {
               </div>
             </div>
             <div className="modal-footer border-0 py-0 justify-content-center gap-30">
-              <button type="button" className="button" data-bs-dismiss="modal" onClick={navigateToCart}>
+              <button
+                type="button"
+                className="button"
+                data-bs-dismiss="modal"
+                onClick={navigateToCart}
+              >
                 View My Cart
               </button>
               <button type="button" className="button signup">

@@ -5,9 +5,23 @@ import BlogCard from "../components/BlogCard";
 import ProductCard from "../components/ProductCard";
 import SpecialProduct from "../components/SpecialProduct";
 import Container from "../components/Container";
+import {useState, useEffect} from 'react';
 // import { services } from "../utils/Data";
 
 const Home = () => {
+
+  const [products, setProducts] = useState([]);
+
+  useEffect(() => {
+    // Fetch data from backend API
+    fetch('http://localhost:5000/api/product')
+      .then(response => response.json())
+      .then(data => setProducts(data.slice(0, 4)))
+      .catch(error => console.error('Error fetching data:', error));
+  }, []);
+
+  console.log(products);
+
   return (
     <>
       <Container class1="home-wrapper-1 py-5">
@@ -256,10 +270,11 @@ const Home = () => {
           </div>
         </div>
         <div className="row">
-          <SpecialProduct />
-          <SpecialProduct />
-          <SpecialProduct />
-          <SpecialProduct />
+        {
+            products.map(product => {
+              return (<SpecialProduct key={product.product_id} product={product} />)
+            })
+          }
         </div>
       </Container>
       <Container class1="popular-wrapper py-5 home-wrapper-2">

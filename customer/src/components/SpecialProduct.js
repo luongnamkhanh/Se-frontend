@@ -1,29 +1,41 @@
 import React from "react";
 import ReactStars from "react-rating-stars-component";
 import { Link } from "react-router-dom";
-const SpecialProduct = () => {
+import { useDispatch } from "react-redux";
+import { addToCart } from "../features/cart/cartSlice";
+
+const SpecialProduct = (props) => {
+  const {product_id, product_name, brand_name , list_price ,avg_rating, image} = props.product;
+
+  const dispatch = useDispatch();
+
+  const handleAddToCart= () => {
+      dispatch(addToCart(props.product))
+  }
+    
+  const formattedAvgRating = parseFloat(avg_rating).toFixed(2);
   return (
     <>
       <div className="col-6 mb-3">
         <div className="special-product-card">
           <div className="d-flex justify-content-between">
             <div>
-              <img src="images/watch.jpg" className="img-fluid" alt="watch" />
+              <img src={image} className="img-fluid" alt="watch" />
             </div>
             <div className="special-product-content">
-              <h5 className="brand">Havels</h5>
+              <h5 className="brand">{brand_name}</h5>
               <h6 className="title">
-                Samsung Galaxy Note10+ Mobile Phone; Sim...
+                {product_name}
               </h6>
               <ReactStars
                 count={5}
                 size={24}
-                value={4}
+                value={formattedAvgRating}
                 edit={false}
                 activeColor="#ffd700"
               />
               <p className="price">
-                <span className="red-p">$100</span> &nbsp; <strike>$200</strike>
+                <span className="red-p">{list_price}</span> &nbsp; <strike>$200</strike>
               </p>
               <div className="discount-till d-flex align-items-center gap-10">
                 <p className="mb-0">
@@ -48,7 +60,7 @@ const SpecialProduct = () => {
                   ></div>
                 </div>
               </div>
-              <Link className="button">Add to Cart</Link>
+              <Link onClick={handleAddToCart} className="button">Add to Cart</Link>
             </div>
           </div>
         </div>
