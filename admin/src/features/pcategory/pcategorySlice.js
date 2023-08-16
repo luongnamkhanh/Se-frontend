@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk, createAction } from "@reduxjs/toolkit";
 import pCategoryService from "./pcategoryService";
+import {toast} from "react-toastify";
 
 export const getCategories = createAsyncThunk(
   "productCategory/get-categories",
@@ -9,7 +10,7 @@ export const getCategories = createAsyncThunk(
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
     }
-  }
+  },
 );
 export const createCategory = createAsyncThunk(
   "productCategory/create-category",
@@ -19,7 +20,7 @@ export const createCategory = createAsyncThunk(
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
     }
-  }
+  },
 );
 export const updateAProductCategory = createAsyncThunk(
   "productCategory/update-category",
@@ -29,7 +30,7 @@ export const updateAProductCategory = createAsyncThunk(
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
     }
-  }
+  },
 );
 
 export const deleteAProductCategory = createAsyncThunk(
@@ -40,7 +41,7 @@ export const deleteAProductCategory = createAsyncThunk(
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
     }
-  }
+  },
 );
 export const getAProductCategory = createAsyncThunk(
   "productCategory/get-product-category",
@@ -50,7 +51,7 @@ export const getAProductCategory = createAsyncThunk(
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
     }
-  }
+  },
 );
 export const resetState = createAction("RevertAll");
 
@@ -120,6 +121,7 @@ export const pCategorySlice = createSlice({
         state.isError = false;
         state.isSuccess = true;
         state.deletedCategory = action.payload;
+        toast.success("Delete category successfully", { autoClose: 1000 });
       })
       .addCase(deleteAProductCategory.rejected, (state, action) => {
         state.isLoading = false;

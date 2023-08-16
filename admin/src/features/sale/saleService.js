@@ -8,7 +8,7 @@ const getSalesByCustomer = async (data) => {
     const { month, year } = data;
     const response = await axios.get(
       `${base_url}v1/sale/revenues/customer?month=${month}&year=${year}`,
-      config
+      config,
     );
     console.log(response.data);
     return response.data;
@@ -22,13 +22,15 @@ const getSalesByCustomer = async (data) => {
   }
 };
 const getSalesByConfig = async (data) => {
-  try{
+  try {
     const { month, year } = data;
-    const response = await axios.get(`${base_url}v1/sale/revenues/config?month=${month}&year=${year}`, config);
+    const response = await axios.get(
+      `${base_url}v1/sale/revenues/config?month=${month}&year=${year}`,
+      config,
+    );
     console.log(response.data);
     return response.data;
-  }
-    catch (error) {
+  } catch (error) {
     if (error.response && error.response.status === 404) {
       // Return empty string or undefined based on your preference
       return "";
@@ -36,15 +38,17 @@ const getSalesByConfig = async (data) => {
     }
     throw error;
   }
-}
+};
 const getSalesByItem = async (data) => {
-  try{
+  try {
     const { month, year } = data;
-    const response = await axios.get(`${base_url}v1/sale/items-sold?month=${month}&year=${year}`, config);
+    const response = await axios.get(
+      `${base_url}v1/sale/items-sold?month=${month}&year=${year}`,
+      config,
+    );
     console.log(response.data);
     return response.data;
-  }
-  catch (error) {
+  } catch (error) {
     if (error.response && error.response.status === 404) {
       // Return empty string or undefined based on your preference
       return "";
@@ -52,12 +56,12 @@ const getSalesByItem = async (data) => {
     }
     throw error;
   }
-}
+};
 
 const saleService = {
-    getSalesByCustomer,
-    getSalesByConfig,
-    getSalesByItem
+  getSalesByCustomer,
+  getSalesByConfig,
+  getSalesByItem,
 };
 
 export default saleService;

@@ -169,10 +169,11 @@ const SingleProduct = () => {
                 <div className="d-flex gap-10 flex-column mt-2 mb-3">
                   <h3 className="product-heading">Configuration :</h3>
                   <select onChange={e => handleConfigSelect(configurations[e.target.value])}>
+                    <option value="" disabled selected>Select a Configuration</option>
                     {configurations.map((config, index) => (
                       <option key={index} value={index}>
                         {config.ram !== null ? `Ram: ${config.ram}` : ""}
-                        {config.rom !== null ? ` Rom: ${config.rom} ` : ""} 
+                        {config.rom !== null ? ` Rom: ${config.rom} ` : ""}
                         Color: {config.color}
                       </option>
                     ))}
@@ -374,7 +375,7 @@ const SingleProduct = () => {
       >
         <div className="modal-dialog modal-dialog-centered ">
           <div className="modal-content">
-            <div className="modal-header py-0 border-0">
+            <div className="modal-header border-0">
               <button
                 type="button"
                 className="btn-close"

@@ -20,11 +20,14 @@ const Cart = () => {
   console.log(cart)
   const calculateTotalPrice = () => {
     let totalPrice = 0;
-    cart.forEach((item) => {
-      totalPrice += parseFloat(item.total_price);
-    });
-    return totalPrice;
-  };
+    if (cart) {
+      cart.forEach((item) => {
+        totalPrice += parseFloat(item.total_price);
+      });
+    }
+    return totalPrice.toFixed(2);
+};
+
   const [openDeleteModal, setOpenDeleteModal] = useState(false);
   const [openClearModal, setOpenClearModal] = useState(false);
   const [configId, setConfigId] = useState("");

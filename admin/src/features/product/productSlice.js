@@ -1,5 +1,6 @@
-import { createSlice, createAsyncThunk, createAction } from "@reduxjs/toolkit";
+import { createAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import productService from "./productService";
+import { toast } from "react-toastify";
 
 export const getProducts = createAsyncThunk(
   "product/get-products",
@@ -9,7 +10,7 @@ export const getProducts = createAsyncThunk(
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
     }
-  }
+  },
 );
 export const createProducts = createAsyncThunk(
   "product/create-products",
@@ -19,7 +20,7 @@ export const createProducts = createAsyncThunk(
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
     }
-  }
+  },
 );
 
 export const getAProduct = createAsyncThunk(
@@ -30,7 +31,7 @@ export const getAProduct = createAsyncThunk(
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
     }
-  }
+  },
 );
 
 export const updateAProduct = createAsyncThunk(
@@ -41,7 +42,7 @@ export const updateAProduct = createAsyncThunk(
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
     }
-  }
+  },
 );
 
 export const deleteAProduct = createAsyncThunk(
@@ -52,7 +53,7 @@ export const deleteAProduct = createAsyncThunk(
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
     }
-  }
+  },
 );
 
 export const resetState = createAction("Reset_all");
@@ -138,6 +139,7 @@ export const productSlice = createSlice({
         state.isError = false;
         state.isSuccess = true;
         state.deletedProduct = action.payload;
+        toast.success("Delete product successfully", { autoClose: 1000 });
       })
       .addCase(deleteAProduct.rejected, (state, action) => {
         state.isLoading = false;

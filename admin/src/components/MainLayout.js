@@ -18,6 +18,7 @@ import { SiBrandfolder } from "react-icons/si";
 import { BiCategoryAlt } from "react-icons/bi";
 import { Layout, Menu, theme } from "antd";
 import { useNavigate } from "react-router-dom";
+
 const { Header, Sider, Content } = Layout;
 const storedUser = JSON.parse(localStorage.getItem("user"));
 
@@ -41,7 +42,7 @@ const MainLayout = () => {
           mode="inline"
           defaultSelectedKeys={[""]}
           onClick={({ key }) => {
-            if (key == "signout") {
+            if (key === "signout") {
             } else {
               navigate(key);
             }
@@ -51,11 +52,6 @@ const MainLayout = () => {
               key: "",
               icon: <AiOutlineDashboard className="fs-4" />,
               label: "Dashboard",
-            },
-            {
-              key: "customers",
-              icon: <AiOutlineUser className="fs-4" />,
-              label: "Customers",
             },
             {
               key: "Catalog",
@@ -102,7 +98,16 @@ const MainLayout = () => {
                   icon: <AiOutlineBgColors className="fs-4" />,
                   label: "Config List",
                 },
-
+                {
+                  key: "item",
+                  icon: <AiOutlineBgColors className="fs-4" />,
+                  label: "Add Item",
+                },
+                {
+                  key: "list-item",
+                  icon: <AiOutlineBgColors className="fs-4" />,
+                  label: "Item List",
+                },
               ],
             },
             {
@@ -132,51 +137,6 @@ const MainLayout = () => {
                 },
               ],
             },
-            
-            {
-              key: "marketing",
-              icon: <RiCouponLine className="fs-4" />,
-              label: "Marketing",
-              children: [
-                {
-                  key: "coupon",
-                  icon: <ImBlog className="fs-4" />,
-                  label: "Add Coupon",
-                },
-                {
-                  key: "coupon-list",
-                  icon: <RiCouponLine className="fs-4" />,
-                  label: "Coupon List",
-                },
-              ],
-            },
-            {
-              key: "blogs",
-              icon: <FaBloggerB className="fs-4" />,
-              label: "Blogs",
-              children: [
-                {
-                  key: "blog",
-                  icon: <ImBlog className="fs-4" />,
-                  label: "Add Blog",
-                },
-                {
-                  key: "blog-list",
-                  icon: <FaBloggerB className="fs-4" />,
-                  label: "Blog List",
-                },
-                {
-                  key: "blog-category",
-                  icon: <ImBlog className="fs-4" />,
-                  label: "Add Blog Category",
-                },
-                {
-                  key: "blog-category-list",
-                  icon: <FaBloggerB className="fs-4" />,
-                  label: "Blog Category List",
-                },
-              ],
-            },
           ]}
         />
       </Sider>
@@ -193,7 +153,7 @@ const MainLayout = () => {
             {
               className: "trigger",
               onClick: () => setCollapsed(!collapsed),
-            }
+            },
           )}
           <div className="d-flex gap-4 align-items-center">
             <div className="position-relative">
@@ -210,7 +170,11 @@ const MainLayout = () => {
                 data-bs-toggle="dropdown"
                 aria-expanded="false"
               >
-                <h5 className="mb-0">{storedUser.staff.first_name + " " + storedUser.staff.last_name}</h5>
+                <h5 className="mb-0">
+                  {storedUser.staff.first_name +
+                    " " +
+                    storedUser.staff.last_name}
+                </h5>
                 <p className="mb-0">{storedUser.staff.email}</p>
               </div>
               <div className="dropdown-menu" aria-labelledby="dropdownMenuLink">

@@ -66,6 +66,7 @@ const initialState = {
   isSuccess: false,
   message: "",
 };
+
 export const productSlice = createSlice({
   name: "products",
   initialState,

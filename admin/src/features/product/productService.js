@@ -19,9 +19,9 @@ const getProduct = async (id) => {
   return response.data;
 };
 
-const deleteProduct= async (id) => {
+const deleteProduct = async (id) => {
   const response = await axios.delete(`${base_url}v1/product/${id}`, config);
-  console.log(id)
+  console.log(id);
   return response.data;
 };
 
@@ -30,7 +30,7 @@ const updateProduct = async (product) => {
   const response = await axios.patch(
     `${base_url}v1/product/${product.id}`,
     { productName: product.productData.productName },
-    config
+    config,
   );
   return response.data;
 };
@@ -40,7 +40,7 @@ const productService = {
   createProduct,
   getProduct,
   deleteProduct,
-  updateProduct
+  updateProduct,
 };
 
 export default productService;

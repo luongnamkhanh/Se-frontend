@@ -20,7 +20,7 @@ export const login = createAsyncThunk(
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
     }
-  }
+  },
 );
 
 export const getOrders = createAsyncThunk(
@@ -31,7 +31,7 @@ export const getOrders = createAsyncThunk(
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
     }
-  }
+  },
 );
 export const getOrderByUser = createAsyncThunk(
   "order/get-order",
@@ -41,7 +41,7 @@ export const getOrderByUser = createAsyncThunk(
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
     }
-  }
+  },
 );
 export const updateOrderStatus = createAsyncThunk(
   "order/update-order",
@@ -51,7 +51,7 @@ export const updateOrderStatus = createAsyncThunk(
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
     }
-  }
+  },
 );
 export const authSlice = createSlice({
   name: "auth",
@@ -109,23 +109,20 @@ export const authSlice = createSlice({
       })
       .addCase(updateOrderStatus.pending, (state) => {
         state.isLoading = true;
-      }
-      )
+      })
       .addCase(updateOrderStatus.fulfilled, (state, action) => {
         state.isError = false;
         state.isLoading = false;
         state.isSuccess = true;
         state.orderstatus = action.payload;
         state.message = "success";
-      }
-      )
+      })
       .addCase(updateOrderStatus.rejected, (state, action) => {
         state.isError = true;
         state.isSuccess = false;
         state.message = action.error;
         state.isLoading = false;
-      }
-      );
+      });
   },
 });
 

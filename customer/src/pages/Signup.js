@@ -11,7 +11,7 @@ import { useDispatch } from "react-redux";
 import { registerUser } from "../features/user/userSlice";
 
 const signUpSchema = yup.object({
-  last_name: yup.string().required("First Name is required"),
+  first_name_name: yup.string().required("First Name is required"),
   last_name: yup.string().required("Last Name is required"),
   email: yup.string().email("Email should be valid").required("Email is required"),
   phone: yup.string().required("Phone Phone is required"),

@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk, createAction } from "@reduxjs/toolkit";
 import brandService from "./brandService";
+import {toast} from "react-toastify";
 
 export const getBrands = createAsyncThunk(
   "brand/get-brands",
@@ -9,7 +10,7 @@ export const getBrands = createAsyncThunk(
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
     }
-  }
+  },
 );
 export const getABrand = createAsyncThunk(
   "brand/get-brand",
@@ -19,7 +20,7 @@ export const getABrand = createAsyncThunk(
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
     }
-  }
+  },
 );
 export const createBrand = createAsyncThunk(
   "brand/create-brand",
@@ -29,7 +30,7 @@ export const createBrand = createAsyncThunk(
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
     }
-  }
+  },
 );
 export const updateABrand = createAsyncThunk(
   "brand/update-brand",
@@ -39,7 +40,7 @@ export const updateABrand = createAsyncThunk(
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
     }
-  }
+  },
 );
 
 export const deleteABrand = createAsyncThunk(
@@ -50,7 +51,7 @@ export const deleteABrand = createAsyncThunk(
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
     }
-  }
+  },
 );
 
 export const resetState = createAction("Reset_all");
@@ -105,7 +106,7 @@ export const brandSlice = createSlice({
         state.isLoading = false;
         state.isError = false;
         state.isSuccess = true;
-        state.brandName = action.payload.title;
+        state.brandName = action.payload;
       })
       .addCase(getABrand.rejected, (state, action) => {
         state.isLoading = false;
@@ -136,6 +137,7 @@ export const brandSlice = createSlice({
         state.isError = false;
         state.isSuccess = true;
         state.deletedBrand = action.payload;
+        toast.success("Delete brand successfully", { autoClose: 1000 });
       })
       .addCase(deleteABrand.rejected, (state, action) => {
         state.isLoading = false;

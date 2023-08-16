@@ -24,8 +24,22 @@ const getCart = async () => {
         return res.data;
 }
 
+const getProfile = async () => {
+    const res = await axios.get(`${base_url}user`, config)
+    if(res.data)
+        return res.data;
+}
+
+const updateUser = async (userData) => {
+    const res = await axios.put(`${base_url}user/edit-user`, userData, config)
+    if(res.data)
+        return res.data
+}
+
 export const authService = {
     register,
     login,
-    getCart
+    getCart,
+    getProfile,
+    updateUser
 }

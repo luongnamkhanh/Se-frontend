@@ -19,9 +19,9 @@ const getConfig = async (id) => {
   return response.data;
 };
 
-const deleteConfig= async (id) => {
-  const response = await axios.delete(`${base_url}v1/config/${id}`, config);
-  console.log(id)
+const deleteConfig = async (id) => {
+  const response = await axios.delete(`${base_url}v1/config/${id}`);
+  console.log(id);
   return response.data;
 };
 

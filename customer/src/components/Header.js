@@ -8,9 +8,9 @@ import wishlist from "../images/wishlist.svg";
 import user from "../images/user.svg";
 import cartImg from "../images/cart.svg";
 import menu from "../images/menu.svg";
-
 import { useDispatch, useSelector } from "react-redux";
 import { getUserCart } from "../features/user/userSlice";
+
 const Header = () => {
   const dispatch = useDispatch();
   const authState = useSelector(state => state.auth)

@@ -1,17 +1,18 @@
-import { createSlice, createAsyncThunk, createAction } from "@reduxjs/toolkit";
+import { createAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import configService from "./configService";
+import {toast} from "react-toastify";
 
 export const getConfigs = createAsyncThunk(
   "config/get-configs",
   async (thunkAPI) => {
     try {
-      const res =  await configService.getConfigs();
-    //   console.log(res)
-      return res
+      const res = await configService.getConfigs();
+      //   console.log(res)
+      return res;
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
     }
-  }
+  },
 );
 
 export const createConfigs = createAsyncThunk(
@@ -22,7 +23,7 @@ export const createConfigs = createAsyncThunk(
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
     }
-  }
+  },
 );
 
 export const getAConfig = createAsyncThunk(
@@ -33,18 +34,20 @@ export const getAConfig = createAsyncThunk(
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
     }
-  }
+  },
 );
 
 export const deleteAConfig = createAsyncThunk(
   "config/delete-config",
   async (id, thunkAPI) => {
     try {
-      return await configService.deleteConfig(id);
+      const response = await configService.deleteConfig(id);
+      console.log(response);
+      return response;
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
     }
-  }
+  },
 );
 
 export const resetState = createAction("Reset_all");
@@ -116,6 +119,7 @@ export const configSlice = createSlice({
         state.isError = false;
         state.isSuccess = true;
         state.deletedConfig = action.payload;
+        toast.success("Delete config successfully", { autoClose: 1000 });
       })
       .addCase(deleteAConfig.rejected, (state, action) => {
         state.isLoading = false;

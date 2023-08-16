@@ -28,8 +28,32 @@ export const getUserCart = createAsyncThunk(
   "user/cart/get",
   async (thunkAPI) => {
     try {
-      const res =  await authService.getCart();
+      const res = await authService.getCart();
       return res
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+);
+
+export const getUserProfile = createAsyncThunk(
+  "user/profile/get",
+  async (thunkAPI) => {
+    try {
+      const res = await authService.getProfile();
+      console.log(res)
+      return res
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+);
+
+export const updateUserProfile = createAsyncThunk(
+  "auth/update",
+  async (userData, thunkAPI) => {
+    try {
+      return await authService.updateUser(userData);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
     }
@@ -108,6 +132,42 @@ export const authSlice = createSlice({
         state.isError = true;
         state.isSuccess = false;
         state.messsage = action.error;
+      })
+      .addCase(getUserProfile.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(getUserProfile.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isError = false;
+        state.isSuccess = true;
+        state.userProfile = action.payload;
+      })
+      .addCase(getUserProfile.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.isSuccess = false;
+        state.messsage = action.error;
+      })
+      .addCase(updateUserProfile.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(updateUserProfile.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isError = false;
+        state.isSuccess = true;
+        state.userProfile = action.payload;
+        if (state.isSuccess === true) {
+          toast.success("User updated successfully", { autoClose: 2000 });
+        }
+      })
+      .addCase(updateUserProfile.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.isSuccess = false;
+        state.messsage = action.error;
+        if (state.isError === true) {
+          toast.error("Error", { autoClose: 2000 });
+        }
       });
   },
 });

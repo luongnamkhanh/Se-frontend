@@ -29,7 +29,7 @@ const updateProductCategory = async (category) => {
   const response = await axios.patch(
     `${base_url}v1/category/${category.id}`,
     { categoryName: category.pCatData.categoryName },
-    config
+    config,
   );
 
   return response.data;

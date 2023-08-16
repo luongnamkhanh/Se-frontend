@@ -20,4 +20,3 @@ const CustomInput = (props) => {
 };
 
 export default CustomInput;
-
