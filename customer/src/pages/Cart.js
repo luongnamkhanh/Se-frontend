@@ -20,7 +20,7 @@ const Cart = () => {
   console.log(cart)
   const calculateTotalPrice = () => {
     let totalPrice = 0;
-    cart.forEach((item) => {
+    cart?.forEach((item) => {
       totalPrice += parseFloat(item.total_price);
     });
     return totalPrice;

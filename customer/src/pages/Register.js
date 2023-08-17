@@ -127,6 +127,8 @@ const Register = () => {
                       Sign Up
                     </button>
                   </div>
+
+      
                 </div>
               </form>
             </div>

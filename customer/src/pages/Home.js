@@ -14,7 +14,7 @@ const Home = () => {
 
   useEffect(() => {
     // Fetch data from backend API
-    fetch('http://localhost:5000/api/product')
+    fetch('http://localhost:4000/api/product')
       .then(response => response.json())
       .then(data => setProducts(data.slice(0, 4)))
       .catch(error => console.error('Error fetching data:', error));

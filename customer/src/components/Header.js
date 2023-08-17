@@ -1,4 +1,3 @@
-
 import React, { useEffect } from "react";
 
 import { NavLink, Link } from "react-router-dom";
@@ -13,18 +12,18 @@ import { useDispatch, useSelector } from "react-redux";
 import { getUserCart } from "../features/user/userSlice";
 const Header = () => {
   const dispatch = useDispatch();
-  const authState = useSelector(state => state.auth)
+  const authState = useSelector((state) => state.auth);
   const name = localStorage.getItem("name");
 
   const handleLogout = () => {
     localStorage.clear();
-    window.location.reload()
-  }  
+    window.location.reload();
+  };
 
   useEffect(() => {
-    dispatch(getUserCart())
-  }, [])
-  const cart = useSelector((state) => state.auth.cartProducts)
+    dispatch(getUserCart());
+  }, []);
+  const cart = useSelector((state) => state.auth.cartProducts);
 
   const calculateTotalPrice = () => {
     if (!cart) return 0;
@@ -47,14 +46,14 @@ const Header = () => {
   };
   return (
     <>
-      <header className="header-upper py-3">
+      <header className="header-upper py-3 ">
         <div className="container-xxl">
           <div className="row align-items-center">
             <div className="col-2">
               <h2>
-
-                <Link to={'/'} className="text-white">KellPHONES</Link>
-
+                <Link to={"/"} className="text-white">
+                  KellPHONES
+                </Link>
               </h2>
             </div>
             <div className="col-5">
@@ -95,26 +94,7 @@ const Header = () => {
                     </p>
                   </Link>
                 </div>
-                <div>
-                  <Link
 
-                    to={name === null ? "/login" : "/profile"}
-                    className="d-flex align-items-center gap-10 text-white"
-                  >
-                    <img src={user} alt="user" />
-                    {
-                      name === null ? 
-                      <p className="mb-0">
-                        Log in <br /> My Account
-                      </p> 
-                      : 
-                      <p className="mb-0">
-                        Welcome <br/> {name}
-                      </p> 
-                    }
-
-                  </Link>
-                </div>
                 <div>
                   <Link
                     to="/cart"
@@ -123,12 +103,33 @@ const Header = () => {
                   >
                     <img src={cartImg} alt="cart" />
                     <div className="d-flex flex-column gap-10">
-                      <span className="badge bg-white text-dark">{cart ? calculateTotalItem() : 0}</span>
-                      <p className="mb-0">${cart ? calculateTotalPrice() : 0}</p>
+                      <span className="badge bg-white text-dark">
+                        {cart ? calculateTotalItem() : 0}
+                      </span>
+                      <p className="mb-0">
+                        ${cart ? calculateTotalPrice() : 0}
+                      </p>
                     </div>
                   </Link>
                 </div>
 
+                <div>
+                  <Link
+                    to={name === null ? "/login" : "/profile"}
+                    className="d-flex align-items-center gap-10 text-white"
+                  >
+                    <img src={user} alt="user" />
+                    {name === null ? (
+                      <p className="mb-0">
+                        Log in <br /> My Account
+                      </p>
+                    ) : (
+                      <p className="mb-0">
+                        Welcome <br /> {name}
+                      </p>
+                    )}
+                  </Link>
+                </div>
               </div>
             </div>
           </div>
@@ -159,23 +160,17 @@ const Header = () => {
                     >
                       <li>
                         <Link className="dropdown-item text-white" to="">
-
                           Action
-
                         </Link>
                       </li>
                       <li>
                         <Link className="dropdown-item text-white" to="">
-
                           Another action
-
                         </Link>
                       </li>
                       <li>
                         <Link className="dropdown-item text-white" to="">
-
                           Something else here
-
                         </Link>
                       </li>
                     </ul>
@@ -187,12 +182,17 @@ const Header = () => {
                     <NavLink to="/product">Our Store</NavLink>
                     <NavLink to="/blogs">Blogs</NavLink>
                     <NavLink to="/contact">Contact</NavLink>
-                    {
-                      name === null ? 
+                    {name === null ? (
                       ""
-                      : 
-                      <button onClick={handleLogout} className="border border-0 bg-transparent text-white text-uppercase" type="button">Logout</button>
-                    }
+                    ) : (
+                      <button
+                        onClick={handleLogout}
+                        className="border border-0 bg-transparent text-white text-uppercase"
+                        type="button"
+                      >
+                        Logout
+                      </button>
+                    )}
                   </div>
                 </div>
               </div>
@@ -204,6 +204,4 @@ const Header = () => {
   );
 };
 
-
 export default Header;
-

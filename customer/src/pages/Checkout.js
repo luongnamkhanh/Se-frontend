@@ -8,8 +8,10 @@ import { useDispatch, useSelector } from "react-redux";
 
 const Checkout = () => {
   const dispatch = useDispatch();
-  // const cartState = useSelector(state => state.auth.)
 
+  const currentUser = useSelector(state => state.cart)
+
+  console.log(currentUser)
   return (
     <>
       <Container class1="checkout-wrapper py-5 home-wrapper-2">
